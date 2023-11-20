@@ -20,6 +20,13 @@ struct MainView: View {
                         .font(.title)
                     Text("Счета")
                 }
+            CategoriesView()
+                .tag("Categories")
+                .tabItem {
+                    Image(systemName: "envelope.open.fill")
+                        .font(.title)
+                    Text("Категории")
+                }
             TransactionView()
                 .tag("Transactions")
                 .tabItem {

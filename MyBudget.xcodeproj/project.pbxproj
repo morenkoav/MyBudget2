@@ -17,6 +17,8 @@
 		3A1242932B0B82E3002DFFFF /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242922B0B82E3002DFFFF /* TransactionModel.swift */; };
 		3A1242952B0B99DA002DFFFF /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242942B0B99DA002DFFFF /* TransactionView.swift */; };
 		3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242972B0B9B1B002DFFFF /* SummaryView.swift */; };
+		3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */; };
+		3A12429D2B0BAD70002DFFFF /* AddNewAccauntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		3A1242922B0B82E3002DFFFF /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		3A1242942B0B99DA002DFFFF /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		3A1242972B0B9B1B002DFFFF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewAccauntView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 			children = (
 				3A12427A2B0B7B28002DFFFF /* MainView.swift */,
 				3A1242892B0B7D2C002DFFFF /* AccauntsView */,
+				3A1242992B0B9DF0002DFFFF /* CategoriesView */,
 				3A12428B2B0B7EDF002DFFFF /* TransactionView */,
 				3A1242962B0B9AAC002DFFFF /* SummaryView */,
 				3A12428A2B0B7D3C002DFFFF /* BudgetView */,
@@ -114,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				3A12428C2B0B7FD1002DFFFF /* AccauntsView.swift */,
+				3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */,
 			);
 			path = AccauntsView;
 			sourceTree = "<group>";
@@ -139,6 +145,14 @@
 				3A1242972B0B9B1B002DFFFF /* SummaryView.swift */,
 			);
 			path = SummaryView;
+			sourceTree = "<group>";
+		};
+		3A1242992B0B9DF0002DFFFF /* CategoriesView */ = {
+			isa = PBXGroup;
+			children = (
+				3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */,
+			);
+			path = CategoriesView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +230,9 @@
 				3A12428F2B0B82A6002DFFFF /* AccauntModel.swift in Sources */,
 				3A12428D2B0B7FD1002DFFFF /* AccauntsView.swift in Sources */,
 				3A1242912B0B82C6002DFFFF /* CategoryModel.swift in Sources */,
+				3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */,
 				3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */,
+				3A12429D2B0BAD70002DFFFF /* AddNewAccauntView.swift in Sources */,
 				3A1242952B0B99DA002DFFFF /* TransactionView.swift in Sources */,
 				3A1242792B0B7B28002DFFFF /* MyBudgetApp.swift in Sources */,
 			);
