@@ -19,6 +19,8 @@
 		3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242972B0B9B1B002DFFFF /* SummaryView.swift */; };
 		3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */; };
 		3A12429D2B0BAD70002DFFFF /* AddNewAccauntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */; };
+		3A4B931B2B0C957F001AE9E3 /* AccauntsViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */; };
+		3A4B931D2B0CB231001AE9E3 /* CategoriesViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		3A1242972B0B9B1B002DFFFF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewAccauntView.swift; sourceTree = "<group>"; };
+		3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccauntsViewComponents.swift; sourceTree = "<group>"; };
+		3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 			children = (
 				3A12428C2B0B7FD1002DFFFF /* AccauntsView.swift */,
 				3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */,
+				3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */,
 			);
 			path = AccauntsView;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */,
+				3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */,
 			);
 			path = CategoriesView;
 			sourceTree = "<group>";
@@ -229,7 +235,9 @@
 				3A12427B2B0B7B28002DFFFF /* MainView.swift in Sources */,
 				3A12428F2B0B82A6002DFFFF /* AccauntModel.swift in Sources */,
 				3A12428D2B0B7FD1002DFFFF /* AccauntsView.swift in Sources */,
+				3A4B931D2B0CB231001AE9E3 /* CategoriesViewComponents.swift in Sources */,
 				3A1242912B0B82C6002DFFFF /* CategoryModel.swift in Sources */,
+				3A4B931B2B0C957F001AE9E3 /* AccauntsViewComponents.swift in Sources */,
 				3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */,
 				3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */,
 				3A12429D2B0BAD70002DFFFF /* AddNewAccauntView.swift in Sources */,

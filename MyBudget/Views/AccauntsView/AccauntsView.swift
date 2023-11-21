@@ -12,16 +12,19 @@ struct AccauntsView: View {
     
     @Query var accaunts: [Accaunts]
     @Query(filter: #Predicate<Accaunts> {$0.isTrackingAccaunt == true}, sort: \Accaunts.accauntName) let trackingAccaunts: [Accaunts]
+    @Query(filter: #Predicate<Accaunts> {$0.isTrackingAccaunt == false}, sort: \Accaunts.accauntName) let notTrackingAccaunts: [Accaunts]
     
-    @State private var showAddAccauntDialog = false
-    @Environment(\.modelContext) private var accauntContext
+    @State var showAddAccauntDialog = false
+    @Environment(\.modelContext) var accauntContext
     
-    @State private var accauntName: String = ""
-    @State private var startBalance: Double = 0
-    @State private var isTrackingAccaunt = true
+    @State var accauntName: String = ""
+    @State var startBalance: Double = 0
+    @State var isTrackingAccaunt = true
     
-    @State private var isUpdatingMode = false
-    @State private var accauntToEdit: Accaunts?
+    @State var isUpdatingMode = false
+    @State var accauntToEdit: Accaunts?
+    
+    @State private var trackingSelection: String = "Tracking"
     
     var currencyFormatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -30,9 +33,9 @@ struct AccauntsView: View {
         return formatter
     }
     
-    private func accauntBalance() -> Double {
+    private func accauntBalance(model: [Accaunts]) -> Double {
         
-        let startAmount = accaunts.reduce(0) {result, item in
+        let startAmount = model.reduce(0) {result, item in
             return result + item.startBalance
         }
         
@@ -45,72 +48,57 @@ struct AccauntsView: View {
     
     var body: some View {
         NavigationStack {
-            
-            ZStack {
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(.blue.opacity(0.5))
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 100)
-                    .font(.title2)
-                VStack {
-                    Text("Доступно средств:")
-                        .font(.headline)
-                    Text(accauntBalance().formatted())
-                        .font(.title)
-                        .bold()
-                }
-            }
-            .padding()
-            
-            List(accaunts) { accaunt in
+             
+            VStack {
+                Picker("", selection: $trackingSelection, content: {
+                    Text("В балансе")
+                        .tag("Tracking")
+                    Text("За балансом")
+                        .tag("NotTracking")
+                    Text("Все счета")
+                        .tag("All")
+                })
+                .pickerStyle(.segmented)
+                .padding()
                 
-                let sum = accaunt.transactions?.reduce(0) {
-                    result, item in
-                    return result + item.amount
-                }
-                
-                HStack {
-                    VStack(alignment: .leading){
-                        Text(accaunt.accauntName)
-                        if accaunt.isTrackingAccaunt {
-                            Text("В балансе")
-                                .font(.caption2)
-                                .foregroundStyle(.white)
-                                .padding(.horizontal,4)
-                                .background(.green.gradient, in: .capsule)
-                        } else {
-                            Text("За балансом")
-                                .font(.caption2)
-                                .foregroundStyle(.white)
-                                .padding(.horizontal,4)
-                                .background(.red.gradient, in: .capsule)
+                ZStack {
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                        .foregroundStyle(.blue.opacity(0.5))
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 100)
+                        .font(.title2)
+                    VStack {
+                        Text("Доступно средств:")
+                            .font(.headline)
+                        if trackingSelection == "Tracking" {
+                            Text(accauntBalance(model: trackingAccaunts).formatted())
+                                .font(.title)
+                                .bold()
                         }
-                        
+                        if trackingSelection == "NotTracking" {
+                            Text((accauntBalance(model: accaunts)-accauntBalance(model: trackingAccaunts)).formatted())
+                                .font(.title)
+                                .bold()
+                        }
+                        if trackingSelection == "All" {
+                            Text(accauntBalance(model: accaunts).formatted())
+                                .font(.title)
+                                .bold()
+                        }
                     }
-                    .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
-                    Spacer()
-                    Text((accaunt.startBalance + (sum ?? 0)).formatted())
-                        .bold()
-                        .multilineTextAlignment(.trailing)
                 }
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    
-                    Button(role: .destructive, action: {accauntContext.delete(accaunt)}, label: {
-                        Image(systemName: "trash.fill")
-                    })
-                    
-                    Button(action: {
-                        isUpdatingMode.toggle()
-                        accauntName = accaunt.accauntName
-                        startBalance = accaunt.startBalance
-                        isTrackingAccaunt = accaunt.isTrackingAccaunt
-                        accauntToEdit = accaunt
-                        showAddAccauntDialog.toggle()},
-                           label: {
-                        Image(systemName: "pencil")
-                            .tint(Color.orange)
-                    })
+                .padding()
+            }
+            
+            Group {
+                if trackingSelection == "Tracking" {
+                    accauntList(model: trackingAccaunts)
                 }
-                
+                if trackingSelection == "NotTracking" {
+                    accauntList(model: notTrackingAccaunts)
+                }
+                if trackingSelection == "All" {
+                    accauntList(model: accaunts)
+                }
             }
             .navigationTitle("Мои счета")
             .overlay {
@@ -136,58 +124,7 @@ struct AccauntsView: View {
         .sheet(isPresented: $showAddAccauntDialog) {
             
         } content: {
-            NavigationStack {
-                List {
-                    TextField("Имя счета", text: $accauntName)
-                    TextField("0", value: $startBalance, format: .number)
-                        .keyboardType(.decimalPad)
-                    Toggle("Учитывать в балансе", isOn: $isTrackingAccaunt)
-                }
-                .navigationTitle("Добавить счет")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Отмена") {
-                            showAddAccauntDialog = false
-                            isUpdatingMode = false
-                        }
-                        .tint(.red)
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Добавить") {
-                            
-                            if isUpdatingMode {
-                                
-                                accauntToEdit?.accauntName = accauntName
-                                accauntToEdit?.startBalance = startBalance
-                                accauntToEdit?.isTrackingAccaunt = isTrackingAccaunt
-                                
-                                accauntName = ""
-                                startBalance = 0
-                                isUpdatingMode = false
-                                showAddAccauntDialog = false
-                                 
-                            } else {
-                                
-                                let accaunt = Accaunts(accauntName: accauntName, startBalance: startBalance, isTrackingAccaunt: isTrackingAccaunt)
-                                accauntContext.insert(accaunt)
-                                
-                                accauntName = ""
-                                startBalance = 0
-                                isUpdatingMode = false
-                                showAddAccauntDialog = false
-                            }
-                            
-
-                        }
-                        .disabled(accauntName.isEmpty)
-                    }
-                }
-            }
-            .presentationDetents([.height(280)])
-            .presentationCornerRadius(25)
-            .interactiveDismissDisabled()
+            editAccauntView
         }
     }
 }
