@@ -49,13 +49,15 @@ extension CategoriesView {
                 .pickerStyle(.segmented)
                 TextField("Название категории", text: $categoryName)
                 HStack(alignment: .center) {
+                    Spacer()
                     Image(categoryImage)
                     Button("Выбрать иконку", action: {
                         showIconPicker.toggle()
                     })
+                    Spacer()
                 }
             }
-            .navigationTitle("Добавить категорию")
+            .navigationTitle(isUpdatingMode ? "Изменить категорию" : "Добавить категорию")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -67,7 +69,7 @@ extension CategoriesView {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Добавить") {
+                    Button(isUpdatingMode ? "Изменить" : "Добавить") {
                         if isUpdatingMode {
                             updateCategoryData()
                             clearAndCloseCategoryForm()

@@ -12,7 +12,13 @@ struct TransactionView: View {
     
     @Environment(\.modelContext) var transactionContext
     @Query var allAccaunts: [Accaunts]
+    
     @Query var allCategories: [Categories]
+    @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeCategories: [Categories]
+    @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let expenseCategories: [Categories]
+    @Query(filter: #Predicate<Categories> {$0.operation == "Transfer"}) let transferCategories: [Categories]
+    
+    
     @Query var allTransactions: [Transactions]
     
     @State var transactionDate = Date()
@@ -25,6 +31,9 @@ struct TransactionView: View {
     
     @State var showEditTransactionForm = false
     @State var isUpdatingMode = false
+    @State var operationCategory = "Expense"
+    
+    @State var transferToAccaunt: Accaunts?
     
     
     var body: some View {
@@ -54,6 +63,7 @@ struct TransactionView: View {
     }
 }
 
-//#Preview {
-//    TransactionView()
-//}
+#Preview {
+    TransactionView()
+        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self])
+}

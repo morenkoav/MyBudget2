@@ -35,13 +35,18 @@ struct AccauntsView: View {
     
     private func accauntBalance(model: [Accaunts]) -> Double {
         
-        let startAmount = model.reduce(0) {result, item in
+        let startAmount = model.reduce(0) {
+            result, item in
             return result + item.startBalance
         }
+  
         
-//        let sum = accaunts.transactions?.reduce(0) {
+//        let transactionSum = model.reduce(0) {
 //            result, item in
-//            return result + item.amount
+//            return result + (item.transactions?.reduce(0) {
+//                result, item in
+//                return result + item.amount
+//            } ?? 0)
 //        }
         return startAmount
     }
@@ -131,4 +136,5 @@ struct AccauntsView: View {
 
 #Preview {
     AccauntsView()
+        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self])
 }

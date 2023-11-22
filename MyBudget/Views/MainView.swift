@@ -47,4 +47,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self])
 }

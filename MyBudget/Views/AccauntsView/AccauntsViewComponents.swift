@@ -12,12 +12,7 @@ extension AccauntsView {
     
     func accauntList(model: [Accaunts]) -> some View {
         return List(model) { accaunt in
-            
-            let sum = accaunt.transactions?.reduce(0) {
-                result, item in
-                return result + item.amount
-            }
-            
+                   
             HStack {
                 VStack(alignment: .leading){
                     Text(accaunt.accauntName)
@@ -38,7 +33,7 @@ extension AccauntsView {
                 }
                 .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                 Spacer()
-                Text((accaunt.startBalance + (sum ?? 0)).formatted())
+                Text(accaunt.currentBalance.formatted())
                     .bold()
                     .multilineTextAlignment(.trailing)
             }
@@ -90,7 +85,7 @@ extension AccauntsView {
                     .keyboardType(.decimalPad)
                 Toggle("Учитывать в балансе", isOn: $isTrackingAccaunt)
             }
-            .navigationTitle("Добавить счет")
+            .navigationTitle(isUpdatingMode ? "Изменить счет" : "Добавить счет")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -102,7 +97,7 @@ extension AccauntsView {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Добавить") {
+                    Button(isUpdatingMode ? "Изменить" : "Добавить") {
                         if isUpdatingMode {
                             updateAccauntData()
                             clearAndCloseAccauntForm()

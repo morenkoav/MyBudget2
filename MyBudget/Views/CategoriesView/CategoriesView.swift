@@ -99,4 +99,5 @@ struct CategoriesView: View {
 
 #Preview {
     CategoriesView()
+        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self])
 }
