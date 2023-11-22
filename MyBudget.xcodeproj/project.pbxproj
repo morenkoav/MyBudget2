@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0942122B0D36400070C35C /* TransactionViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0942112B0D36400070C35C /* TransactionViewComponents.swift */; };
 		3A1242792B0B7B28002DFFFF /* MyBudgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242782B0B7B28002DFFFF /* MyBudgetApp.swift */; };
 		3A12427B2B0B7B28002DFFFF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12427A2B0B7B28002DFFFF /* MainView.swift */; };
 		3A12427D2B0B7B2D002DFFFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A12427C2B0B7B2D002DFFFF /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A0942112B0D36400070C35C /* TransactionViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewComponents.swift; sourceTree = "<group>"; };
 		3A1242752B0B7B28002DFFFF /* MyBudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A1242782B0B7B28002DFFFF /* MyBudgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBudgetApp.swift; sourceTree = "<group>"; };
 		3A12427A2B0B7B28002DFFFF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				3A1242942B0B99DA002DFFFF /* TransactionView.swift */,
+				3A0942112B0D36400070C35C /* TransactionViewComponents.swift */,
 			);
 			path = TransactionView;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0942122B0D36400070C35C /* TransactionViewComponents.swift in Sources */,
 				3A1242932B0B82E3002DFFFF /* TransactionModel.swift in Sources */,
 				3A12427B2B0B7B28002DFFFF /* MainView.swift in Sources */,
 				3A12428F2B0B82A6002DFFFF /* AccauntModel.swift in Sources */,

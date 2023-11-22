@@ -52,7 +52,7 @@ struct CategoriesView: View {
                     Text("Расходы")
                         .tag("Expense")
                     Text("Переводы")
-                        .tag("Expense")
+                        .tag("Transfer")
                 })
                 .pickerStyle(.palette)
                 .padding()

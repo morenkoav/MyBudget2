@@ -55,7 +55,7 @@ extension CategoriesView {
                     })
                 }
             }
-            .navigationTitle("Добавить счет")
+            .navigationTitle("Добавить категорию")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
