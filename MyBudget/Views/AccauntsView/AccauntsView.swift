@@ -37,17 +37,8 @@ struct AccauntsView: View {
         
         let startAmount = model.reduce(0) {
             result, item in
-            return result + item.startBalance
+            return result + item.currentBalance
         }
-  
-        
-//        let transactionSum = model.reduce(0) {
-//            result, item in
-//            return result + (item.transactions?.reduce(0) {
-//                result, item in
-//                return result + item.amount
-//            } ?? 0)
-//        }
         return startAmount
     }
     
@@ -68,7 +59,7 @@ struct AccauntsView: View {
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                        .foregroundStyle(.blue.opacity(0.5))
+                        .foregroundStyle(.blue.gradient.opacity(0.6))
                         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 100)
                         .font(.title2)
                     VStack {

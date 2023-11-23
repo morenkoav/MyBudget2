@@ -10,56 +10,49 @@ import SwiftUI
 extension TransactionView {
     
     func updateTransactionData() {
-        
+        transactionToEdit?.category = category
+        transactionToEdit?.accaunt = accaunt
+        transactionToEdit?.date = transactionDate
+        transactionToEdit?.amount = amount
+        transactionToEdit?.memo = memo
     }
     
     func addTransaction() {
         
         if operationCategory == "Income" {
-//            let accauntSchema: Accaunts?
             let incomeTransaction = Transactions(
                 date: transactionDate,
-                accaunt: accaunt!,
-                category: category!,
                 isPassiveIncome: isPassiveIncome,
                 isInvestments: isInvestments,
                 amount: amount,
                 memo: memo
             )
             
-            incomeTransaction.accaunt = accaunt!
-            incomeTransaction.category = category!
-            
-            
             transactionContext.insert(incomeTransaction)
             
+            accaunt?.transactions?.append(incomeTransaction)
+            category?.transactions?.append(incomeTransaction)
             
             
-//            accaunt?.transactions?.append(incomeTransaction)
-//            category?.transactions?.append(incomeTransaction)
-//            incomeTransaction.accaunt = accauntSchema
-//            accauntSchema?.transactions?.append(incomeTransaction)
         }
         
         if operationCategory == "Expense" {
             let expenseTransaction = Transactions(
                 date: transactionDate,
-                accaunt: accaunt!,
-                category: category!,
                 isPassiveIncome: isPassiveIncome,
                 isInvestments: isInvestments,
                 amount: -amount,
                 memo: memo
             )
             transactionContext.insert(expenseTransaction)
+            
+            accaunt?.transactions?.append(expenseTransaction)
+            category?.transactions?.append(expenseTransaction)
         }
         
-        if operationCategory == "Transfer"
-        {
+        if operationCategory == "Transfer" {
             let transactionFrom = Transactions(
                 date: transactionDate,
-                accaunt: accaunt!,
-                category: category!,
                 isPassiveIncome: false,
                 isInvestments: false,
                 amount: -amount,
@@ -67,8 +60,6 @@ extension TransactionView {
             )
             let transactionTo = Transactions(
                 date: transactionDate,
-                accaunt: transferToAccaunt!,
-                category: category!,
                 isPassiveIncome: false,
                 isInvestments: false,
                 amount: amount,
@@ -77,14 +68,20 @@ extension TransactionView {
             
             transactionContext.insert(transactionFrom)
             transactionContext.insert(transactionTo)
+            
+            accaunt?.transactions?.append(transactionFrom)
+            category?.transactions?.append(transactionFrom)
+            
+            transferToAccaunt?.transactions?.append(transactionTo)
+            category?.transactions?.append(transactionTo)
         }
     }
     
     func clearAndCloseTransactionForm() {
-//        category = nil
-//        accaunt = nil
-//        transferToAccaunt = nil
-//        transactionDate = Date()
+        category = nil
+        accaunt = nil
+        transferToAccaunt = nil
+        transactionDate = Date()
         amount = 0
         memo = ""
         showEditTransactionForm = false
@@ -109,7 +106,7 @@ extension TransactionView {
                 
                 Menu {
                     ForEach(allAccaunts) { acc in
-                        Button(acc.accauntName) {
+                        Button("\(acc.accauntName): \(acc.currentBalance.formatted())") {
                             self.accaunt = acc
                         }
                     }
@@ -129,7 +126,7 @@ extension TransactionView {
                 
                 Menu {
                     ForEach(allAccaunts) { acc in
-                        Button(acc.accauntName) {
+                        Button("\(acc.accauntName): \(acc.currentBalance.formatted())") {
                             self.accaunt = acc
                         }
                     }
@@ -152,7 +149,7 @@ extension TransactionView {
             
             Menu {
                 ForEach(allAccaunts) { acc in
-                    Button(acc.accauntName) {
+                    Button("\(acc.accauntName): \(acc.currentBalance.formatted())") {
                         self.accaunt = acc
                     }
                 }
@@ -174,7 +171,7 @@ extension TransactionView {
             
             Menu {
                 ForEach(allAccaunts) { acc in
-                    Button(acc.accauntName) {
+                    Button("\(acc.accauntName): \(acc.currentBalance.formatted())") {
                         self.transferToAccaunt = acc
                     }
                 }
@@ -305,4 +302,68 @@ extension TransactionView {
         .presentationCornerRadius(25)
         .interactiveDismissDisabled()
     }
+    
+    func transactionsList(model: [Transactions]) -> some View {
+        return List(model) { transaction in
+            HStack {
+                Image(transaction.category?.image ?? "")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: 30, maxHeight: 30)
+                VStack(alignment: .leading) {
+                    Text(transaction.category?.category ?? "")
+                        .font(.subheadline)
+                        .bold()
+                        .lineLimit(1)
+                    Text(transaction.date.formatted(date: Date.FormatStyle.DateStyle.abbreviated, time: Date.FormatStyle.TimeStyle.omitted))
+                        .font(.footnote)
+                    HStack {
+                        Text(transaction.accaunt?.accauntName ?? "")
+                            .font(.caption2)
+                        if !transaction.memo.isEmpty {
+                            Text("- \(transaction.memo)")
+                                .font(.caption)
+                                .lineLimit(1)
+                        }
+                    }
+                }
+                Spacer()
+                Text(transaction.amount.formatted())
+                    .font(.subheadline)
+                    .bold()
+                    .multilineTextAlignment(.trailing)
+                    .foregroundColor(transaction.category?.operation == "Income" ? .green : transaction.category?.operation == "Expense" ? .red : .gray)
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                
+                Button(role: .destructive, action: {transactionContext.delete(transaction)}, label: {
+                    Image(systemName: "trash.fill")
+                })
+                
+                Button(action: {
+                    isUpdatingMode.toggle()
+                    category = transaction.category
+                    accaunt = transaction.accaunt
+                    isInvestments = transaction.isInvestments
+                    isPassiveIncome = transaction.isPassiveIncome
+                    transactionDate = transaction.date
+                    amount = transaction.amount
+                    memo = transaction.memo
+                    transactionToEdit = transaction
+                    showEditTransactionForm.toggle()
+                },
+                       label: {
+                    Image(systemName: "pencil")
+                        .tint(Color.orange)
+                })
+            }
+        }
+        .listStyle(.plain)
+    }
+    
+    func startDate() -> Date {
+        return Date()
+    }
+    
+    
 }

@@ -13,7 +13,7 @@ class Categories {
     
     let id: UUID
     var operation: String
-    var category: String
+    @Attribute(.unique) var category: String
     var image: String
     @Relationship(deleteRule: .cascade, inverse: \Transactions.category)
     var transactions: [Transactions]?

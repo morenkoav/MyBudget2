@@ -20,13 +20,13 @@ extension AccauntsView {
                         Text("В балансе")
                             .font(.caption2)
                             .foregroundStyle(.white)
-                            .padding(.horizontal,4)
+                            .padding(.horizontal, 4)
                             .background(.green.gradient, in: .capsule)
                     } else {
                         Text("За балансом")
                             .font(.caption2)
                             .foregroundStyle(.white)
-                            .padding(.horizontal,4)
+                            .padding(.horizontal, 4)
                             .background(.red.gradient, in: .capsule)
                     }
                     

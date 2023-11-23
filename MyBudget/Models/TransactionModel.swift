@@ -22,8 +22,6 @@ class Transactions {
     
     init(
         date: Date,
-        accaunt: Accaunts,
-        category: Categories,
         isPassiveIncome: Bool,
         isInvestments: Bool,
         amount: Double,
@@ -31,12 +29,9 @@ class Transactions {
     ) {
         self.id = UUID()
         self.date = date
-        self.accaunt = accaunt
-        self.category = category
         self.isPassiveIncome = isPassiveIncome
         self.isInvestments = isInvestments
         self.amount = amount
         self.memo = memo
     }
-    
 }

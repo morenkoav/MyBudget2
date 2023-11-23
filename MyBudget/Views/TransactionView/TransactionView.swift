@@ -19,7 +19,10 @@ struct TransactionView: View {
     @Query(filter: #Predicate<Categories> {$0.operation == "Transfer"}) let transferCategories: [Categories]
     
     
-    @Query var allTransactions: [Transactions]
+    @Query let allTransactions: [Transactions]
+    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Income"}, sort: \Transactions.date, order: .reverse) let incomeTransactions: [Transactions]
+    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Expense"}, sort: \Transactions.date, order: .reverse) let expenseTransactions: [Transactions]
+    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Transfer"}, sort: \Transactions.date, order: .reverse) let transferTransactions: [Transactions]
     
     @State var transactionDate = Date()
     @State var accaunt: Accaunts?
@@ -34,12 +37,33 @@ struct TransactionView: View {
     @State var operationCategory = "Expense"
     
     @State var transferToAccaunt: Accaunts?
+    @State var transactionToEdit: Transactions?
     
     
     var body: some View {
         NavigationStack {
-            List {
-                
+            VStack {
+                Picker("", selection: $operationCategory, content: {
+                    Text("Доходы")
+                        .tag("Income")
+                    Text("Расходы")
+                        .tag("Expense")
+                    Text("Переводы")
+                        .tag("Transfer")
+                })
+                .pickerStyle(.palette)
+                .padding()
+            }
+            Group {
+                if operationCategory == "Income" {
+                    transactionsList(model: incomeTransactions)
+                }
+                if operationCategory == "Expense" {
+                    transactionsList(model: expenseTransactions)
+                }
+                if operationCategory == "Transfer" {
+                    transactionsList(model: transferTransactions)
+                }
             }
             .navigationTitle("Мои операции")
             .toolbar {

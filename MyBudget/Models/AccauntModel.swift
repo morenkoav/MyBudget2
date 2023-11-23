@@ -12,7 +12,7 @@ import SwiftData
 class Accaunts {
     
     let id: UUID
-    var accauntName: String
+    @Attribute(.unique) var accauntName: String
     var startBalance: Double
     var isTrackingAccaunt: Bool
     @Relationship(deleteRule: .cascade, inverse: \Transactions.accaunt)

@@ -15,7 +15,6 @@ struct CategoriesView: View {
     
     @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeCategories: [Categories]
     @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let expenseCategories: [Categories]
-    @Query(filter: #Predicate<Categories> {$0.operation == "Transfer"}) let transferCategories: [Categories]
     
     @State var showEditCategoryForm = false
     @State var isUpdatingMode = false
@@ -51,8 +50,6 @@ struct CategoriesView: View {
                         .tag("Income")
                     Text("Расходы")
                         .tag("Expense")
-                    Text("Переводы")
-                        .tag("Transfer")
                 })
                 .pickerStyle(.palette)
                 .padding()
@@ -63,9 +60,6 @@ struct CategoriesView: View {
                 }
                 if operationName == "Expense" {
                     categoriesList(model: expenseCategories)
-                }
-                if operationName == "Transfer" {
-                    categoriesList(model: transferCategories)
                 }
             }
             .navigationTitle("Мои категории")
