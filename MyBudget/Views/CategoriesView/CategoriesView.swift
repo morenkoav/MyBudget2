@@ -16,6 +16,10 @@ struct CategoriesView: View {
     @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeCategories: [Categories]
     @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let expenseCategories: [Categories]
     
+//    @Query(filter: #Predicate<Categories> {$0.operation == "Expense" && (($0.transactions?.filter {$0.date < Date()}) != nil)}) let expenseFlexCategories: [Categories]
+    
+//    @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeFlexCategories: [Categories]
+    
     @State var showEditCategoryForm = false
     @State var isUpdatingMode = false
     @State var showIconPicker = false
@@ -40,11 +44,29 @@ struct CategoriesView: View {
     
     let transferImages = ["Transfer",  "Transfer2", "Transfer3"]
     
+    @State var selectedPeriodSlice = "ThisMonth"
+    
+    @State var startPeriodSelected: Date = Date()
+    @State var endPeriod: Date = Date()
+    
     
     
     var body: some View {
         NavigationStack {
             VStack {
+                Picker("", selection: $selectedPeriodSlice, content: {
+                    Text("< Месяц")
+                        .tag("PreviousMonth")
+                    Text("Этот месяц")
+                        .tag("ThisMonth")
+                    Text("Год")
+                        .tag("ThisYear")
+                    Text("Все время")
+                        .tag("AllData")
+                })
+                .pickerStyle(.palette)
+                .padding()
+
                 Picker("", selection: $operationName, content: {
                     Text("Доходы")
                         .tag("Income")
@@ -55,10 +77,13 @@ struct CategoriesView: View {
                 .padding()
             }
             Group {
-                if operationName == "Income" {
+                if operationName == "Income" && selectedPeriodSlice == "PreviousMonth" {
                     categoriesList(model: incomeCategories)
                 }
                 if operationName == "Expense" {
+                    categoriesList(model: expenseCategories)
+                }
+                if operationName == "Expense" && selectedPeriodSlice == "ChoosePeriod" {
                     categoriesList(model: expenseCategories)
                 }
             }

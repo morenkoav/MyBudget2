@@ -213,6 +213,7 @@ extension TransactionView {
                     Button(action: {self.category = cat}, label: {
                         Image(cat.image)
                         Text(cat.category)
+                            .lineLimit(1)
                     })
                 }
             } label: {

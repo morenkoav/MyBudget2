@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State private var currentTab = "Accaunts"
+    @State private var currentTab = "Transactions"
     
     var body: some View {
         TabView(selection: $currentTab) {

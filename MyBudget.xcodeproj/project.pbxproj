@@ -19,7 +19,6 @@
 		3A1242952B0B99DA002DFFFF /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242942B0B99DA002DFFFF /* TransactionView.swift */; };
 		3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1242972B0B9B1B002DFFFF /* SummaryView.swift */; };
 		3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */; };
-		3A12429D2B0BAD70002DFFFF /* AddNewAccauntView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */; };
 		3A4B931B2B0C957F001AE9E3 /* AccauntsViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */; };
 		3A4B931D2B0CB231001AE9E3 /* CategoriesViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */; };
 /* End PBXBuildFile section */
@@ -38,7 +37,6 @@
 		3A1242942B0B99DA002DFFFF /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		3A1242972B0B9B1B002DFFFF /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
-		3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewAccauntView.swift; sourceTree = "<group>"; };
 		3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccauntsViewComponents.swift; sourceTree = "<group>"; };
 		3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				3A12428C2B0B7FD1002DFFFF /* AccauntsView.swift */,
-				3A12429C2B0BAD70002DFFFF /* AddNewAccauntView.swift */,
 				3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */,
 			);
 			path = AccauntsView;
@@ -244,7 +241,6 @@
 				3A4B931B2B0C957F001AE9E3 /* AccauntsViewComponents.swift in Sources */,
 				3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */,
 				3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */,
-				3A12429D2B0BAD70002DFFFF /* AddNewAccauntView.swift in Sources */,
 				3A1242952B0B99DA002DFFFF /* TransactionView.swift in Sources */,
 				3A1242792B0B7B28002DFFFF /* MyBudgetApp.swift in Sources */,
 			);
