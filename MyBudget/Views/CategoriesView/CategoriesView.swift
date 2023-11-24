@@ -8,6 +8,23 @@
 import SwiftUI
 import SwiftData
 
+let currentDate = Date()
+let calendar = Calendar.current
+let components = calendar.dateComponents([.year, .month], from: currentDate)
+
+// MARK: - Начало и окончание текущего месяца
+let startOfCurrentMonth = calendar.date(from: components)!
+let endOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfCurrentMonth)!
+
+// MARK: - Начало и окончание предыдущего месяца
+let startOfPreviousMonth = calendar.date(byAdding: DateComponents(month: -1, day: 0), to: startOfCurrentMonth)!
+let endOfPreviousMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfPreviousMonth)!
+//
+//// MARK: - Начало текущего года
+//let startOfYear = currentDate.startOfYear
+
+
+
 struct CategoriesView: View {
  
     @Environment(\.modelContext) var categoryContext
@@ -16,7 +33,7 @@ struct CategoriesView: View {
     @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeCategories: [Categories]
     @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let expenseCategories: [Categories]
     
-//    @Query(filter: #Predicate<Categories> {$0.operation == "Expense" && (($0.transactions?.filter {$0.date < Date()}) != nil)}) let expenseFlexCategories: [Categories]
+//    @Query(filter: #Predicate[<Categories> {$0.operation == "Expense"}, <Transactions> {$0.date >= startOfCurrentMonth}]) let thisMonthExpenseCategories: [Categories]
     
 //    @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeFlexCategories: [Categories]
     
@@ -87,6 +104,7 @@ struct CategoriesView: View {
                     categoriesList(model: expenseCategories)
                 }
             }
+            Spacer()
             .navigationTitle("Мои категории")
             .overlay {
                 if categories.isEmpty {

@@ -16,7 +16,7 @@ class Accaunts {
     var startBalance: Double
     var isTrackingAccaunt: Bool
     @Relationship(deleteRule: .cascade, inverse: \Transactions.accaunt)
-    var transactions: [Transactions]?
+    var transactions = [Transactions]()
     
     init(
         accauntName: String,
@@ -31,9 +31,9 @@ class Accaunts {
     
     @Transient
     var currentBalance: Double {
-        let sum = transactions?.reduce(0) { result, item in
+        let sum = transactions.reduce(0) { result, item in
             return result + item.amount }
         
-        return startBalance + (sum ?? 0)
+        return startBalance + sum
     }
 }

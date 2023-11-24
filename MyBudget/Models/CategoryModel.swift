@@ -16,7 +16,7 @@ class Categories {
     @Attribute(.unique) var category: String
     var image: String
     @Relationship(deleteRule: .cascade, inverse: \Transactions.category)
-    var transactions: [Transactions]?
+    var transactions = [Transactions]()
     
     init(
         operation: String,
@@ -28,4 +28,14 @@ class Categories {
         self.category = category
         self.image = categoryImage
     }
+    
+    @Transient
+    var categorySum: Double {
+        let sum = transactions.reduce(0) { result, item in
+            return result + item.amount }
+        
+        return sum
+    }
+    
+    
 }

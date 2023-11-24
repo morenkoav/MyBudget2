@@ -30,8 +30,8 @@ extension TransactionView {
             
             transactionContext.insert(incomeTransaction)
             
-            accaunt?.transactions?.append(incomeTransaction)
-            category?.transactions?.append(incomeTransaction)
+            accaunt?.transactions.append(incomeTransaction)
+            category?.transactions.append(incomeTransaction)
             
             
         }
@@ -46,8 +46,8 @@ extension TransactionView {
             )
             transactionContext.insert(expenseTransaction)
             
-            accaunt?.transactions?.append(expenseTransaction)
-            category?.transactions?.append(expenseTransaction)
+            accaunt?.transactions.append(expenseTransaction)
+            category?.transactions.append(expenseTransaction)
         }
         
         if operationCategory == "Transfer" {
@@ -69,11 +69,11 @@ extension TransactionView {
             transactionContext.insert(transactionFrom)
             transactionContext.insert(transactionTo)
             
-            accaunt?.transactions?.append(transactionFrom)
-            category?.transactions?.append(transactionFrom)
+            accaunt?.transactions.append(transactionFrom)
+            category?.transactions.append(transactionFrom)
             
-            transferToAccaunt?.transactions?.append(transactionTo)
-            category?.transactions?.append(transactionTo)
+            transferToAccaunt?.transactions.append(transactionTo)
+            category?.transactions.append(transactionTo)
         }
     }
     

@@ -152,15 +152,11 @@ extension CategoriesView {
     func categoriesList(model: [Categories]) -> some View {
         return List(model) { categorie in
             
-            let sum = categorie.transactions?.reduce(0) {
-                result, item in
-                return result + item.amount
-            }
             HStack {
                 Image(categorie.image)
                 Text(categorie.category)
                 Spacer()
-                Text(sum?.formatted() ?? "0")
+                Text(categorie.categorySum.formatted())
                     .bold()
                     .multilineTextAlignment(.trailing)
             }
