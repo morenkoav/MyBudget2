@@ -8,23 +8,6 @@
 import SwiftUI
 import SwiftData
 
-let currentDate = Date()
-let calendar = Calendar.current
-let components = calendar.dateComponents([.year, .month], from: currentDate)
-
-// MARK: - Начало и окончание текущего месяца
-let startOfCurrentMonth = calendar.date(from: components)!
-let endOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfCurrentMonth)!
-
-// MARK: - Начало и окончание предыдущего месяца
-let startOfPreviousMonth = calendar.date(byAdding: DateComponents(month: -1, day: 0), to: startOfCurrentMonth)!
-let endOfPreviousMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfPreviousMonth)!
-//
-//// MARK: - Начало текущего года
-//let startOfYear = currentDate.startOfYear
-
-
-
 struct CategoriesView: View {
  
     @Environment(\.modelContext) var categoryContext
@@ -33,9 +16,10 @@ struct CategoriesView: View {
     @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeCategories: [Categories]
     @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let expenseCategories: [Categories]
     
-//    @Query(filter: #Predicate[<Categories> {$0.operation == "Expense"}, <Transactions> {$0.date >= startOfCurrentMonth}]) let thisMonthExpenseCategories: [Categories]
+//    @Query(filter: #Predicate<Categories> {$0.operation == "Expense" && $0.dateArray.filter(isIncluded: $0 >= startOfCurrentMonth)}) let thisMonthExpenseCategories: [Categories]
     
 //    @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeFlexCategories: [Categories]
+    
     
     @State var showEditCategoryForm = false
     @State var isUpdatingMode = false
@@ -48,26 +32,18 @@ struct CategoriesView: View {
     @State var categorieToEdit: Categories?
     
     let incomeImages = ["BankInterests", "Investments", "LoveMoney",
-                                       "Profit", "Rent", "Salary", "Savings"]
+                        "Profit", "Percent2","Rent", "Salary", "Savings"]
     
-    let expenseImages = ["Apartments1", "Bus", "Bus2",
-                                         "Buying", "Car", "Car2",
-                                         "Cash", "Digital1", "Digital2",
-                                         "Grocery1", "Hamper", "Home",
-                                         "Home2", "iMac", "Meal",
-                                         "Meal2", "Meal3", "Phone1",
-                                         "Phone2", "Smartphone", "Taxi",
-                                         "Wallet"]
+    let expenseImages = ["Accounting", "Airplane", "AirplaneWindow","Apartments1", "Barber", "Beach", "Bill","Bus", "Bus2",
+                        "Buying", "Cello", "Charity", "Charity2","Car", "Car2", "Cash", "Digital1", "Digital2", "Festival",
+                         "Fitness", "Fitness1", "Fun", "Gift", "Grocery1", "Hamper", "Health", "Health2","Home","Home2",
+                         "iMac", "Meal", "Meal2", "Meal3", "Percent", "Pharma", "Phone1", "Phone2", "Renovation", "Repair",
+                         "Shopping", "Shopping2", "Smartphone", "Taxi", "Travel", "Vacation", "Wallet"]
     
     let transferImages = ["Transfer",  "Transfer2", "Transfer3"]
     
     @State var selectedPeriodSlice = "ThisMonth"
-    
-    @State var startPeriodSelected: Date = Date()
-    @State var endPeriod: Date = Date()
-    
-    
-    
+        
     var body: some View {
         NavigationStack {
             VStack {
@@ -81,9 +57,11 @@ struct CategoriesView: View {
                     Text("Все время")
                         .tag("AllData")
                 })
-                .pickerStyle(.palette)
-                .padding()
-
+                .pickerStyle(.menu)
+                .background(.blue.gradient.opacity(0.6), in: .capsule)
+                .bold()
+                .tint(.white)
+                
                 Picker("", selection: $operationName, content: {
                     Text("Доходы")
                         .tag("Income")
@@ -94,13 +72,10 @@ struct CategoriesView: View {
                 .padding()
             }
             Group {
-                if operationName == "Income" && selectedPeriodSlice == "PreviousMonth" {
+                if operationName == "Income" {
                     categoriesList(model: incomeCategories)
                 }
                 if operationName == "Expense" {
-                    categoriesList(model: expenseCategories)
-                }
-                if operationName == "Expense" && selectedPeriodSlice == "ChoosePeriod" {
                     categoriesList(model: expenseCategories)
                 }
             }

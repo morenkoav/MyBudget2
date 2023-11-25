@@ -21,6 +21,7 @@
 		3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */; };
 		3A4B931B2B0C957F001AE9E3 /* AccauntsViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */; };
 		3A4B931D2B0CB231001AE9E3 /* CategoriesViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */; };
+		3A9F4DD42B11E15D00F2B1F6 /* BudgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9F4DD32B11E15D00F2B1F6 /* BudgetModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3A12429A2B0B9EDE002DFFFF /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		3A4B931A2B0C957F001AE9E3 /* AccauntsViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccauntsViewComponents.swift; sourceTree = "<group>"; };
 		3A4B931C2B0CB231001AE9E3 /* CategoriesViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewComponents.swift; sourceTree = "<group>"; };
+		3A9F4DD32B11E15D00F2B1F6 /* BudgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				3A12428E2B0B82A6002DFFFF /* AccauntModel.swift */,
 				3A1242902B0B82C6002DFFFF /* CategoryModel.swift */,
 				3A1242922B0B82E3002DFFFF /* TransactionModel.swift */,
+				3A9F4DD32B11E15D00F2B1F6 /* BudgetModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				3A1242912B0B82C6002DFFFF /* CategoryModel.swift in Sources */,
 				3A4B931B2B0C957F001AE9E3 /* AccauntsViewComponents.swift in Sources */,
 				3A12429B2B0B9EDE002DFFFF /* CategoriesView.swift in Sources */,
+				3A9F4DD42B11E15D00F2B1F6 /* BudgetModel.swift in Sources */,
 				3A1242982B0B9B1B002DFFFF /* SummaryView.swift in Sources */,
 				3A1242952B0B99DA002DFFFF /* TransactionView.swift in Sources */,
 				3A1242792B0B7B28002DFFFF /* MyBudgetApp.swift in Sources */,

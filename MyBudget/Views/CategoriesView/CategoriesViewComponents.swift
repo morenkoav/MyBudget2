@@ -156,7 +156,20 @@ extension CategoriesView {
                 Image(categorie.image)
                 Text(categorie.category)
                 Spacer()
-                Text(categorie.categorySum.formatted())
+                Group {
+                    if selectedPeriodSlice == "PreviousMonth" {
+                        Text(categorie.sumPreviousMonth.formatted())
+                    }
+                    if selectedPeriodSlice == "ThisMonth" {
+                        Text(categorie.sumThisMonth.formatted())
+                    }
+                    if selectedPeriodSlice == "ThisYear" {
+                        Text(categorie.sumThisYear.formatted())
+                    }
+                    if selectedPeriodSlice == "AllData" {
+                        Text(categorie.categorySum.formatted())
+                    }
+                }
                     .bold()
                     .multilineTextAlignment(.trailing)
             }
@@ -181,6 +194,7 @@ extension CategoriesView {
             }
             
         }
+        .listStyle(.plain)
     }
     
     
