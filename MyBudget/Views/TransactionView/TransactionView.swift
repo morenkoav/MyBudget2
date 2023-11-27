@@ -108,11 +108,13 @@ struct TransactionView: View {
                             .tag("AllData")
                     })
                     .pickerStyle(.menu)
+                    .frame(maxWidth: .infinity / 3, maxHeight: 50)
                     .background(.blue.gradient.opacity(0.6), in: .capsule)
                     .bold()
                     .tint(.white)
+                    periodTotalView()
                 }
-                
+                .padding()
                 Picker("", selection: $operationCategory, content: {
                     Text("Доходы")
                         .tag("Income")
@@ -122,7 +124,7 @@ struct TransactionView: View {
                         .tag("Transfer")
                 })
                 .pickerStyle(.palette)
-                .padding()
+                .padding(.horizontal)
             }
             Group {
 // MARK: - Операции за предыдущий месяц
@@ -220,6 +222,7 @@ struct TransactionView: View {
                         Image(systemName: "plus.circle.fill")
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     }
+                    .foregroundStyle(.blue.gradient.opacity(0.6))
 
                 })
             }
