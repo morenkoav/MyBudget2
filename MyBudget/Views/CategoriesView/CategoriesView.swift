@@ -58,9 +58,10 @@ struct CategoriesView: View {
                         .tag("AllData")
                 })
                 .pickerStyle(.menu)
-                .background(.blue.gradient.opacity(0.6), in: .capsule)
-                .bold()
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .background(.blue.gradient.opacity(0.6), in: .rect(cornerRadius: 15))
                 .tint(.white)
+                .padding(.horizontal)
                 
                 Picker("", selection: $operationName, content: {
                     Text("Доходы")

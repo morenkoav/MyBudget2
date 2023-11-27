@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SummaryView: View {
+   
+    @Query let transactions: [Transactions]
+        
+    @State var selectedPeriodSlice = "ThisMonth"
+    
     var body: some View {
         NavigationStack {
-            List {
-                
+            VStack {
+                periodPicker()
+                incomeExpenseBalanceView()
             }
             .navigationTitle("Обзор")
         }

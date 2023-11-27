@@ -378,19 +378,19 @@ extension TransactionView {
                 if operationCategory == "Income" {
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundStyle(.green.gradient.opacity(0.6))
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 50)
+                        .frame(maxWidth: .infinity / 2, maxHeight: 50)
                         .font(.title2)
                 }
                 if operationCategory == "Expense" {
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundStyle(.red.gradient.opacity(0.6))
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 50)
+                        .frame(maxWidth: .infinity / 2, maxHeight: 50)
                         .font(.title2)
                 }
                 if operationCategory == "Transfer" {
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundStyle(.gray.gradient.opacity(0.6))
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 50)
+                        .frame(maxWidth: .infinity / 2, maxHeight: 50)
                         .font(.title2)
                 }
 

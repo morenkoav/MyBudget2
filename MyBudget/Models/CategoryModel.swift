@@ -37,6 +37,11 @@ let endOfPreviousMonth = calendar.date(byAdding: DateComponents(month: 1, day: -
 // MARK: - Начало текущего года
 let startOfYear = currentDate.startOfYear
 
+// MARK: - Начало и окончание предыдущего года
+let startOfPreviousYear = calendar.date(byAdding: DateComponents(year: -1), to: startOfYear!)!
+let endOfPreviousYear = calendar.date(byAdding: DateComponents(year: 1, day: -1), to: startOfPreviousYear)!
+
+
 
 @Model
 class Categories {
