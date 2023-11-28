@@ -105,5 +105,17 @@ class Categories {
         return sum
     }
     
+    @Transient
+    var sumPreviousYear: Double {
+        let filteredArray = transactions.filter {
+            $0.date >= startOfPreviousYear &&
+            $0.date <= endOfPreviousYear
+        }
+        let sum = filteredArray.reduce(0) { result, item in
+            return result + item.amount
+        }
+        return sum
+    }
+    
     
 }

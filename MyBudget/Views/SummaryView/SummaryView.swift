@@ -24,9 +24,13 @@ struct SummaryView: View {
                 incomeExpenseBalanceView()
                 operationCategoryPicker()
                 
-                
-                
-                expenseBarChart()
+                    if operationCategory == "Expense" {
+                        expenseChart()
+                    }
+                    
+                    if operationCategory == "Income" {
+                        incomeChart()
+                    }
             }
             .navigationTitle("Обзор")
         }
