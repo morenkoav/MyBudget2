@@ -376,23 +376,232 @@ extension SummaryView {
         totalIncome() + totalExpense()
     }
     
-    func expenseBarChart() -> some View {
+//    MARK: - Диаграммы категорий расходов
+    
+    func expenseThisMonthChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Expense"
+            }
         
-        let expenseArray = categories.filter {
-            $0.operation == "Expense"
-        }
-       
-        
-        return Chart(expenseArray) { category in
-            BarMark(
-                x: .value("Сумма", -category.sumThisMonth),
-                y: .value("Категория", category.category)
-            )
-            .foregroundStyle(.red)
-        }
-        .frame(maxWidth: 150)
-        .padding()
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumThisMonth),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
     }
+    
+    func expensePreviousMonthChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Expense"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumPreviousMonth),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func expenseCurrentYearChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Expense"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumThisYear),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func expensePreviousYearChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Expense"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumPreviousYear),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func expenseAllDataChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Expense"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.categorySum),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    
+    func expenseChart() -> some View {
+        return Group {
+            if selectedPeriodSlice == "PreviousMonth" {
+                expensePreviousMonthChart()
+            }
+            if selectedPeriodSlice == "ThisMonth" {
+                expenseThisMonthChart()
+            }
+            if selectedPeriodSlice == "ThisYear" {
+                expenseCurrentYearChart()
+            }
+            if selectedPeriodSlice == "PreviousYear" {
+                expensePreviousYearChart()
+            }
+            if selectedPeriodSlice == "AllData" {
+                expenseAllDataChart()
+            }
+        }
+    }
+    
+//    MARK: - Диаграммы категорий доходов
+    
+    func incomeThisMonthChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Income"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumThisMonth),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func incomePreviousMonthChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Income"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumPreviousMonth),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func incomeCurrentYearChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Income"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumThisYear),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func incomePreviousYearChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Income"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.sumPreviousYear),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    func incomeAllDataChart() -> some View {
+            let expenseArray = categories.filter {
+                $0.operation == "Income"
+            }
+        
+            return Chart(expenseArray) { category in
+                SectorMark(
+                    angle: .value("Cумма", -category.categorySum),
+                    innerRadius: .ratio(0.620),
+                    angularInset: 1.5
+                )
+                .cornerRadius(5)
+                .foregroundStyle(by: .value("Категория", category.category))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+    }
+    
+    
+    func incomeChart() -> some View {
+        return Group {
+            if selectedPeriodSlice == "PreviousMonth" {
+                incomePreviousMonthChart()
+            }
+            if selectedPeriodSlice == "ThisMonth" {
+                incomeThisMonthChart()
+            }
+            if selectedPeriodSlice == "ThisYear" {
+                incomeCurrentYearChart()
+            }
+            if selectedPeriodSlice == "PreviousYear" {
+                incomePreviousYearChart()
+            }
+            if selectedPeriodSlice == "AllData" {
+                incomeAllDataChart()
+            }
+        }
+    }
+
     
     func operationCategoryPicker() -> some View {
         return Picker("", selection: $operationCategory, content: {
