@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Charts
+import SwiftData
 
 extension SummaryView {
     
@@ -40,13 +42,13 @@ extension SummaryView {
                         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
                             Text("Доход")
                                 .font(.headline)
-                            Text(totalIncome().formatted())
+                            Text(totalIncome().rounded().formatted())
                                 .bold()
                                 .font(.title)
                                 .scaledToFit()
                             Text("в том числе")
                                 .font(.subheadline)
-                            Text(passiveIncome().formatted())
+                            Text(passiveIncome().rounded().formatted())
                                 .bold()
                             Text("пассивный доход")
                                 .font(.footnote)
@@ -60,13 +62,13 @@ extension SummaryView {
                         VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
                             Text("Расход")
                                 .font(.headline)
-                            Text(totalExpense().formatted())
+                            Text(totalExpense().rounded().formatted())
                                 .bold()
                                 .font(.title)
                                 .scaledToFit()
                             Text("в том числе")
                                 .font(.subheadline)
-                            Text(investExpense().formatted())
+                            Text(investExpense().rounded().formatted())
                                 .bold()
                             Text("инвестиции")
                                 .font(.footnote)
@@ -92,7 +94,7 @@ extension SummaryView {
                     VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
                         Text("Баланс")
                             .font(.headline)
-                        Text(cashFlow().formatted())
+                        Text(cashFlow().rounded().formatted())
                             .bold()
                             .font(.title)
                             .scaledToFit()
@@ -373,5 +375,35 @@ extension SummaryView {
     func cashFlow() -> Double {
         totalIncome() + totalExpense()
     }
+    
+    func expenseBarChart() -> some View {
+        
+        let expenseArray = categories.filter {
+            $0.operation == "Expense"
+        }
+       
+        
+        return Chart(expenseArray) { category in
+            BarMark(
+                x: .value("Сумма", -category.sumThisMonth),
+                y: .value("Категория", category.category)
+            )
+            .foregroundStyle(.red)
+        }
+        .frame(maxWidth: 150)
+        .padding()
+    }
+    
+    func operationCategoryPicker() -> some View {
+        return Picker("", selection: $operationCategory, content: {
+            Text("Доходы")
+                .tag("Income")
+            Text("Расходы")
+                .tag("Expense")
+        })
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
+    }
+    
     
 }

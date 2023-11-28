@@ -16,7 +16,7 @@ extension Date {
 
 
 let currentDate = Date()
-let calendar = Calendar.current
+let calendar = Calendar.autoupdatingCurrent
 let components = calendar.dateComponents([.year, .month], from: currentDate)
 
 // MARK: - Начало и окончание предыдущего дня
