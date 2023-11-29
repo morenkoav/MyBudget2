@@ -16,11 +16,6 @@ struct CategoriesView: View {
     @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeCategories: [Categories]
     @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let expenseCategories: [Categories]
     
-//    @Query(filter: #Predicate<Categories> {$0.operation == "Expense" && $0.dateArray.filter(isIncluded: $0 >= startOfCurrentMonth)}) let thisMonthExpenseCategories: [Categories]
-    
-//    @Query(filter: #Predicate<Categories> {$0.operation == "Income"}) let incomeFlexCategories: [Categories]
-    
-    
     @State var showEditCategoryForm = false
     @State var isUpdatingMode = false
     @State var showIconPicker = false

@@ -39,7 +39,7 @@ extension SummaryView {
                         RoundedRectangle(cornerRadius: 20)
                             .foregroundStyle(.green.gradient.opacity(0.6))
                             .frame(maxWidth: .infinity / 2, maxHeight: 120)
-                        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
+                        VStack(alignment: .center){
                             Text("Доход")
                                 .font(.headline)
                             Text(totalIncome().rounded().formatted())
@@ -106,517 +106,6 @@ extension SummaryView {
         }
     }
     
-    func totalIncome() -> Double {
-        
-        var income: Double = 0
-        
-        
-        if selectedPeriodSlice == "PreviousMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousMonth &&
-                $0.date <= endOfPreviousMonth &&
-                $0.category?.operation == "Income"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            income = sum
-            }
-        
-        if selectedPeriodSlice == "ThisMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
-                $0.category?.operation == "Income"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            income = sum
-        }
-        
-        if selectedPeriodSlice == "ThisYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfYear! &&
-                $0.category?.operation == "Income"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            income = sum
-        }
-        
-        if selectedPeriodSlice == "PreviousYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousYear &&
-                $0.date <= endOfPreviousYear &&
-                $0.category?.operation == "Income"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            income = sum
-        }
-        
-        if selectedPeriodSlice == "AllData" {
-            let filteredArray = transactions.filter {
-                $0.category?.operation == "Income"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            income = sum
-        }
-
-        return income
-    }
-    
-    func passiveIncome() -> Double {
-        
-        var passiveIncome: Double = 0
-        
-        if selectedPeriodSlice == "PreviousMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousMonth &&
-                $0.date <= endOfPreviousMonth &&
-                $0.category?.operation == "Income" &&
-                $0.isPassiveIncome == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            passiveIncome = sum
-            }
-        
-        if selectedPeriodSlice == "ThisMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
-                $0.category?.operation == "Income" &&
-                $0.isPassiveIncome == true
-                
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            passiveIncome = sum
-        }
-        
-        if selectedPeriodSlice == "ThisYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfYear! &&
-                $0.category?.operation == "Income" &&
-                $0.isPassiveIncome == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            passiveIncome = sum
-        }
-        
-        if selectedPeriodSlice == "PreviousYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousYear &&
-                $0.date <= endOfPreviousYear &&
-                $0.category?.operation == "Income" &&
-                $0.isPassiveIncome == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            passiveIncome = sum
-        }
-        
-        if selectedPeriodSlice == "AllData" {
-            let filteredArray = transactions.filter {
-                $0.category?.operation == "Income" &&
-                $0.isPassiveIncome == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            passiveIncome = sum
-        }
-
-        return passiveIncome
-    }
-    
-    func totalExpense() -> Double {
-        var expense: Double = 0
-        
-        if selectedPeriodSlice == "PreviousMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousMonth &&
-                $0.date <= endOfPreviousMonth &&
-                $0.category?.operation == "Expense"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            expense = sum
-            }
-        
-        if selectedPeriodSlice == "ThisMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
-                $0.category?.operation == "Expense"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            expense = sum
-        }
-        
-        if selectedPeriodSlice == "ThisYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfYear! &&
-                $0.category?.operation == "Expense"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            expense = sum
-        }
-        
-        if selectedPeriodSlice == "PreviousYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousYear &&
-                $0.date <= endOfPreviousYear &&
-                $0.category?.operation == "Expense"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            expense = sum
-        }
-        
-        if selectedPeriodSlice == "AllData" {
-            let filteredArray = transactions.filter {
-                $0.category?.operation == "Expense"
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            expense = sum
-        }
-        
-        return expense
-    }
-    
-    func investExpense() -> Double {
-        var investExpense: Double = 0
-        
-        if selectedPeriodSlice == "PreviousMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousMonth &&
-                $0.date <= endOfPreviousMonth &&
-                $0.category?.operation == "Expense" &&
-                $0.isInvestments == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            investExpense = sum
-            }
-        
-        if selectedPeriodSlice == "ThisMonth" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
-                $0.category?.operation == "Expense" &&
-                $0.isInvestments == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            investExpense = sum
-        }
-        
-        if selectedPeriodSlice == "ThisYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfYear! &&
-                $0.category?.operation == "Expense" &&
-                $0.isInvestments == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            investExpense = sum
-        }
-        
-        if selectedPeriodSlice == "PreviousYear" {
-            let filteredArray = transactions.filter {
-                $0.date >= startOfPreviousYear &&
-                $0.date <= endOfPreviousYear &&
-                $0.category?.operation == "Expense" &&
-                $0.isInvestments == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            investExpense = sum
-        }
-        
-        if selectedPeriodSlice == "AllData" {
-            let filteredArray = transactions.filter {
-                $0.category?.operation == "Expense" &&
-                $0.isInvestments == true
-            }
-            
-            let sum = filteredArray.reduce(0) { result, item in
-                return result + item.amount}
-            investExpense = sum
-        }
-        
-        return investExpense
-    }
-    
-    func cashFlow() -> Double {
-        totalIncome() + totalExpense()
-    }
-    
-//    MARK: - Диаграммы категорий расходов
-    
-    func expenseThisMonthChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Expense"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumThisMonth),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-//                .opacity(category.category == selectedName ? 1.0 : 0.3)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func expensePreviousMonthChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Expense"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumPreviousMonth),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func expenseCurrentYearChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Expense"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumThisYear),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func expensePreviousYearChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Expense"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumPreviousYear),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func expenseAllDataChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Expense"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.categorySum),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    
-    func expenseChart() -> some View {
-        return Group {
-            if selectedPeriodSlice == "PreviousMonth" {
-                expensePreviousMonthChart()
-            }
-            if selectedPeriodSlice == "ThisMonth" {
-                expenseThisMonthChart()
-            }
-            if selectedPeriodSlice == "ThisYear" {
-                expenseCurrentYearChart()
-            }
-            if selectedPeriodSlice == "PreviousYear" {
-                expensePreviousYearChart()
-            }
-            if selectedPeriodSlice == "AllData" {
-                expenseAllDataChart()
-            }
-        }
-    }
-    
-//    MARK: - Диаграммы категорий доходов
-    
-    func incomeThisMonthChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Income"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumThisMonth),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func incomePreviousMonthChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Income"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumPreviousMonth),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func incomeCurrentYearChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Income"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumThisYear),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func incomePreviousYearChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Income"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.sumPreviousYear),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    func incomeAllDataChart() -> some View {
-            let expenseArray = categories.filter {
-                $0.operation == "Income"
-            }
-        
-            return Chart(expenseArray) { category in
-                SectorMark(
-                    angle: .value("Cумма", -category.categorySum),
-                    innerRadius: .ratio(0.620),
-                    angularInset: 1.5
-                )
-                .annotation(position: .overlay) {
-                    Text(category.categorySum.formatted())
-                }
-                .cornerRadius(5)
-                .foregroundStyle(by: .value("Категория", category.category))
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-    }
-    
-    
-    func incomeChart() -> some View {
-        return Group {
-            if selectedPeriodSlice == "PreviousMonth" {
-                incomePreviousMonthChart()
-            }
-            if selectedPeriodSlice == "ThisMonth" {
-                incomeThisMonthChart()
-            }
-            if selectedPeriodSlice == "ThisYear" {
-                incomeCurrentYearChart()
-            }
-            if selectedPeriodSlice == "PreviousYear" {
-                incomePreviousYearChart()
-            }
-            if selectedPeriodSlice == "AllData" {
-                incomeAllDataChart()
-            }
-        }
-    }
-
-    func findSelectedSector(value: Int) -> String? {
-        var accumalatedCount = 0
-        
-        let category = categories.first { (_, count) in
-            accumalatedCount += count
-            return value <= accumalatedCount
-        }
-        
-        return category?.category
-    }
-    
     
     func operationCategoryPicker() -> some View {
         return Picker("", selection: $operationCategory, content: {
@@ -630,4 +119,58 @@ extension SummaryView {
     }
     
     
+    //    MARK: - Диаграммы категорий расходов и доходов
+    
+    func categoryStructureChart() -> some View {
+        
+        let expenseArray = categories.filter {
+            $0.operation == "Expense"
+        }
+        
+        let incomeArray = categories.filter {
+            $0.operation == "Income"
+        }
+        
+        return Chart(operationCategory == "Expense" ? expenseArray : incomeArray) { categorie in
+            SectorMark(
+                angle: .value("Cумма",
+                              selectedPeriodSlice == "PreviousMonth" ? categorie.sumPreviousMonth :
+                                selectedPeriodSlice == "ThisMonth" ? categorie.sumThisMonth :
+                                selectedPeriodSlice == "ThisYear" ? categorie.sumThisYear :
+                                selectedPeriodSlice == "PreviousYear" ? categorie.sumPreviousYear :
+                                categorie.categorySum),
+                innerRadius: .ratio(0.620),
+                outerRadius: categorySelection == categorie.category ? 175 : 120,
+                angularInset: -10
+            )
+            .cornerRadius(5)
+            .foregroundStyle(by: .value("Категория", categorie.category))
+            .opacity(categorySelection == nil ? 1: (categorySelection == categorie.category ? 1 : 0.5))
+        }
+        .chartAngleSelection(value: $selectedSector)
+        .chartLegend(position: .bottom, alignment: .center)
+        .onChange(of: selectedSector, initial: false) {oldValue, newValue in
+            if let newValue {
+                getSelectedCategory(newValue)
+            } else {
+                categorySelection = nil
+            }
+        }
+        .chartBackground { chartProxy in
+            GeometryReader { geometry in
+                let frame = geometry[chartProxy.plotFrame!]
+                VStack {
+                    Text(categorySelection ?? "")
+                        .font(.title)
+                    Text(getCategoryAmount(categorySelection ?? "")?.formatted() ?? "")
+                        .foregroundStyle(operationCategory == "Expense" ? .red : .green)
+                        .bold()
+                        .font(.title2)
+                    Text(getCategoryAmount(categorySelection ?? "") != nil ? "\(getShareAmount()?.rounded().formatted() ?? "")%" : "")
+                }
+                .position(x: frame.midX, y: frame.midY)
+            }
+        }
+    }
 }
+
