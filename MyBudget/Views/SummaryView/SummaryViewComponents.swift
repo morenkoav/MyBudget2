@@ -391,6 +391,7 @@ extension SummaryView {
                 )
                 .cornerRadius(5)
                 .foregroundStyle(by: .value("Категория", category.category))
+//                .opacity(category.category == selectedName ? 1.0 : 0.3)
             }
             .frame(maxWidth: .infinity)
             .padding()
@@ -574,6 +575,9 @@ extension SummaryView {
                     innerRadius: .ratio(0.620),
                     angularInset: 1.5
                 )
+                .annotation(position: .overlay) {
+                    Text(category.categorySum.formatted())
+                }
                 .cornerRadius(5)
                 .foregroundStyle(by: .value("Категория", category.category))
             }
@@ -602,6 +606,17 @@ extension SummaryView {
         }
     }
 
+    func findSelectedSector(value: Int) -> String? {
+        var accumalatedCount = 0
+        
+        let category = categories.first { (_, count) in
+            accumalatedCount += count
+            return value <= accumalatedCount
+        }
+        
+        return category?.category
+    }
+    
     
     func operationCategoryPicker() -> some View {
         return Picker("", selection: $operationCategory, content: {
