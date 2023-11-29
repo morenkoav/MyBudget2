@@ -13,9 +13,13 @@ struct SummaryView: View {
    
     @Query let transactions: [Transactions]
     @Query var categories: [Categories]
-        
+    
     @State var selectedPeriodSlice = "ThisMonth"
     @State var operationCategory = "Expense"
+    
+    @State var selectedSector: Double?
+    @State var categorySelection: String?
+    @State var selectedCategory: Categories?
     
     var body: some View {
         NavigationStack {
@@ -23,14 +27,7 @@ struct SummaryView: View {
                 periodPicker()
                 incomeExpenseBalanceView()
                 operationCategoryPicker()
-                
-                    if operationCategory == "Expense" {
-                        expenseChart()
-                    }
-                    
-                    if operationCategory == "Income" {
-                        incomeChart()
-                    }
+                categoryStructureChart()
             }
             .navigationTitle("Обзор")
         }
