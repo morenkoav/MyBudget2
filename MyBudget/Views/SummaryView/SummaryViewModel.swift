@@ -527,12 +527,15 @@ extension SummaryView {
             return categoryAmount / totalExpense() * 100
         } else {
             categoryAmount = getCategoryAmount(categorySelection ?? "") ?? 0
-            guard totalExpense() != 0 else {return nil}
-            return categoryAmount / totalExpense() * 100
+            guard totalIncome() != 0 else {return nil}
+            return categoryAmount / totalIncome() * 100
         }
     }
-    
-   
-    
 }
 
+extension Double {
+    func rounded(toPosition: Int) -> Double {
+        let multiplier = pow(10.0, Double(toPosition))
+        return (self * multiplier).rounded() / multiplier
+    }
+}

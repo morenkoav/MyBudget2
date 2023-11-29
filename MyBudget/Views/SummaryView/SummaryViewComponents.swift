@@ -140,7 +140,7 @@ extension SummaryView {
                                 selectedPeriodSlice == "PreviousYear" ? categorie.sumPreviousYear :
                                 categorie.categorySum),
                 innerRadius: .ratio(0.620),
-                outerRadius: categorySelection == categorie.category ? 175 : 120,
+                outerRadius: categorySelection == categorie.category ? 130 : 120,
                 angularInset: -10
             )
             .cornerRadius(5)
@@ -148,7 +148,7 @@ extension SummaryView {
             .opacity(categorySelection == nil ? 1: (categorySelection == categorie.category ? 1 : 0.5))
         }
         .chartAngleSelection(value: $selectedSector)
-        .chartLegend(position: .bottom, alignment: .center)
+        .chartLegend(position: .bottom, alignment: .center, spacing: 10)
         .onChange(of: selectedSector, initial: false) {oldValue, newValue in
             if let newValue {
                 getSelectedCategory(newValue)
@@ -166,7 +166,7 @@ extension SummaryView {
                         .foregroundStyle(operationCategory == "Expense" ? .red : .green)
                         .bold()
                         .font(.title2)
-                    Text(getCategoryAmount(categorySelection ?? "") != nil ? "\(getShareAmount()?.rounded().formatted() ?? "")%" : "")
+                    Text(getCategoryAmount(categorySelection ?? "") != nil ? "\(getShareAmount()?.rounded(toPosition: 2).formatted() ?? "")%" : "")
                 }
                 .position(x: frame.midX, y: frame.midY)
             }

@@ -21,6 +21,8 @@ struct SummaryView: View {
     @State var categorySelection: String?
     @State var selectedCategory: Categories?
     
+    @State var showAdditionalInfo = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -30,6 +32,24 @@ struct SummaryView: View {
                 categoryStructureChart()
             }
             .navigationTitle("Обзор")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing,
+                            content: {
+                    Button {
+                        showAdditionalInfo.toggle()
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    }
+                    .foregroundStyle(.blue.gradient.opacity(0.6))
+
+                })
+            }
+        }
+        .sheet(isPresented: $showAdditionalInfo) {
+            
+        } content: {
+            showAditionalCharts()
         }
     }
 }
