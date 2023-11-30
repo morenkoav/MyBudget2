@@ -34,4 +34,6 @@ class Transactions {
         self.amount = amount
         self.memo = memo
     }
+    @Transient
+    var absAmount = abs(amount)
 }

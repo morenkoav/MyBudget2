@@ -28,7 +28,7 @@ let dayOfToday = calendar.startOfDay(for: currentDate)
 
 // MARK: - Начало и окончание текущего месяца
 let startOfCurrentMonth = calendar.date(from: components)!
-let endOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfCurrentMonth)!
+let endOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: 0), to: startOfCurrentMonth)!
 
 // MARK: - Начало и окончание предыдущего месяца
 let startOfPreviousMonth = calendar.date(byAdding: DateComponents(month: -1, day: 0), to: startOfCurrentMonth)!
@@ -117,5 +117,23 @@ class Categories {
         return sum
     }
     
+    @Transient var absCategorySum: Double {
+        abs(categorySum)
+    }
     
+    @Transient var absSumThisMonth: Double {
+        abs(sumThisMonth)
+    }
+    
+    @Transient var absSumPreviousMonth: Double {
+        abs(sumPreviousMonth)
+    }
+    
+    @Transient var absSumThisYear: Double {
+        abs(sumThisYear)
+    }
+    
+    @Transient var absSumPreviousYear: Double {
+        abs(sumPreviousYear)
+    }
 }

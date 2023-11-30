@@ -11,32 +11,28 @@ import Charts
 extension SummaryView {
     
     func showAditionalCharts() -> some View {
-        let expenseArray = categories.filter {
-            $0.operation == "Expense"
-        }
-        let incomeArray = categories.filter {
-            $0.operation == "Income"
-        }
         
-        let sortedExpenseArray = expenseArray
-            .sorted(by: { $1.sumThisMonth > $0.sumThisMonth })
-        
-        return Group {
-            Chart(sortedExpenseArray) { expense in
-                BarMark(
-                    x: .value("Сумма", expense.sumThisMonth),
-                    y: .value("Категория", expense.category)
-                )
+        return NavigationStack {
+            operationCategoryPicker()
+            ScrollView {
+                categoryStructureChart()
+                    .frame(height: 300)
+                categoriesBarChart()
+                    .frame(height: 200)
+                operationsPerPeriod()
+                    .frame(height: 200)
+                categoryStructureChartAlter()
+                    .frame(height: 300)
             }
-        }
-        .navigationTitle("Аналитика")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button("Отмена") {
-                    showAdditionalInfo = false
+            .navigationTitle("Аналитика")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Отмена") {
+                        showAdditionalInfo = false
+                    }
+                    .tint(.red)
                 }
-                .tint(.red)
             }
         }
     }

@@ -141,17 +141,18 @@ extension SummaryView {
                                 categorie.categorySum),
                 innerRadius: .ratio(0.620),
                 outerRadius: categorySelection == categorie.category ? 130 : 120,
-                angularInset: -10
+                angularInset: 1.5
             )
-            .cornerRadius(5)
+            .cornerRadius(5.0)
             .foregroundStyle(by: .value("Категория", categorie.category))
             .opacity(categorySelection == nil ? 1: (categorySelection == categorie.category ? 1 : 0.5))
         }
         .chartAngleSelection(value: $selectedSector)
         .chartLegend(position: .bottom, alignment: .center, spacing: 10)
+        .chartLegend(.hidden)
         .onChange(of: selectedSector, initial: false) {oldValue, newValue in
             if let newValue {
-                getSelectedCategory(newValue)
+                getSelectedCategory(Int(newValue))
             } else {
                 categorySelection = nil
             }
@@ -172,5 +173,118 @@ extension SummaryView {
             }
         }
     }
+   
+//    MARK: - Гистограмма категорий расходов и доходов
+    
+    func categoriesBarChart() -> some View {
+        let expenseArray = categories.filter {
+            $0.operation == "Expense"
+        }
+        let incomeArray = categories.filter {
+            $0.operation == "Income"
+        }
+        
+        let sortedExpenseArray = expenseArray
+            .sorted(by: { $1.sumThisMonth > $0.sumThisMonth })
+        
+        let sortedIncomeArray = incomeArray
+            .sorted(by: {$0.sumThisMonth > $1.sumThisMonth})
+
+        return Chart(operationCategory == "Expense" ? sortedExpenseArray : sortedIncomeArray) { category in
+                BarMark(
+                    x: .value("Сумма", category.sumThisMonth),
+                    y: .value("Категория", category.category)
+                )
+            }
+            .padding()
+    }
+    
+    func operationsPerPeriod() -> some View {
+        let incomeTransactions = transactions.filter {
+            $0.category?.operation == "Income"
+        }
+        
+        let expenseTransactions = transactions.filter {
+            $0.category?.operation == "Expense"
+        }
+        
+        return Chart {
+            ForEach(expenseTransactions, id:\.date) { expense in
+                BarMark(
+                    x: .value("Дата", expense.date, unit: .month),
+                    y: .value("Категория", -expense.amount)
+                )
+                .foregroundStyle(.red.opacity(0.5))
+            }
+            
+            ForEach(incomeTransactions, id:\.date) { income in
+                BarMark(
+                    x: .value("Дата", income.date, unit:.month),
+                    y: .value("Категория", income.amount)
+                )
+                .foregroundStyle(.green.opacity(0.5))
+            }
+        }
+    }
+    
+    
+    func categoryStructureChartAlter() -> some View {
+        
+        let expenseArray = categories.filter {
+            $0.operation == "Expense"
+        }
+        
+        let incomeArray = categories.filter {
+            $0.operation == "Income"
+        }
+        
+        return Chart(operationCategory == "Expense" ? expenseArray : incomeArray) { categorie in
+            SectorMark(
+                angle: .value("Cумма",
+                              selectedPeriodSlice == "PreviousMonth" ? categorie.sumPreviousMonth :
+                                selectedPeriodSlice == "ThisMonth" ? categorie.sumThisMonth :
+                                selectedPeriodSlice == "ThisYear" ? categorie.sumThisYear :
+                                selectedPeriodSlice == "PreviousYear" ? categorie.sumPreviousYear :
+                                categorie.categorySum),
+                innerRadius: .ratio(0.620),
+                outerRadius: categorySelection == categorie.category ? 130 : 120,
+                angularInset: 1.5
+            )
+            .cornerRadius(5.0)
+            .foregroundStyle(by: .value("Категория", categorie.category))
+            .opacity(categorySelection == nil ? 1: (categorySelection == categorie.category ? 1 : 0.5))
+        }
+        .chartAngleSelection(value: $selectedSector)
+        .chartLegend(position: .bottom, alignment: .center, spacing: 10)
+        .chartLegend(.hidden)
+        .onChange(of: selectedSector, initial: false) {oldValue, newValue in
+            if let newValue {
+                getSelectedCategory(Int(newValue))
+            } else {
+                categorySelection = nil
+            }
+        }
+        .chartBackground { chartProxy in
+            GeometryReader { geometry in
+                let frame = geometry[chartProxy.plotFrame!]
+                VStack {
+                    Text(categorySelection ?? "")
+                        .font(.title)
+                    Text(getCategoryAmount(categorySelection ?? "")?.formatted() ?? "")
+                        .foregroundStyle(operationCategory == "Expense" ? .red : .green)
+                        .bold()
+                        .font(.title2)
+                    Text(getCategoryAmount(categorySelection ?? "") != nil ? "\(getShareAmount()?.rounded(toPosition: 2).formatted() ?? "")%" : "")
+                }
+                .position(x: frame.midX, y: frame.midY)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
 }
 

@@ -293,7 +293,7 @@ extension SummaryView {
     
 // MARK: - Функция определения выбранной категории
         
-        func getSelectedCategory(_ value: Double) {
+        func getSelectedCategory(_ value: Int) {
             var initialValue = 0.0
             let expenseArray = categories.filter {
                 $0.operation == "Expense"
@@ -315,7 +315,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -331,7 +331,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -347,7 +347,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -363,7 +363,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -379,7 +379,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -396,7 +396,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -412,7 +412,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -428,7 +428,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -444,7 +444,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -460,7 +460,7 @@ extension SummaryView {
                             return tuple
                         }
                     
-                    if let categorie = convertedArray.first(where: { $0.1.contains(value)}) {
+                    if let categorie = convertedArray.first(where: { $0.1.contains(Double(value))}) {
                         categorySelection = categorie.0
                     }
                 }
@@ -531,6 +531,7 @@ extension SummaryView {
             return categoryAmount / totalIncome() * 100
         }
     }
+    
 }
 
 extension Double {
