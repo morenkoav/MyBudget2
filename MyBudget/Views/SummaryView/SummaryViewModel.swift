@@ -306,11 +306,11 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "PreviousMonth" {
                     let convertedArray = expenseArray
-                        .sorted(by: { $1.sumPreviousMonth > $0.sumPreviousMonth })
+//                        .sorted(by: { $1.sumPreviousMonth > $0.sumPreviousMonth })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumPreviousMonth
-                            let tuple = (categorie.category, rangeEnd..<initialValue)
+                            let rangeEnd = initialValue + categorie.absSumPreviousMonth
+                            let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
                         }
@@ -322,11 +322,11 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "ThisMonth" {
                     let convertedArray = expenseArray
-                        .sorted(by: { $1.sumThisMonth > $0.sumThisMonth })
+//                        .sorted(by: { $1.sumThisMonth > $0.sumThisMonth })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumThisMonth
-                            let tuple = (categorie.category, rangeEnd..<initialValue)
+                            let rangeEnd = initialValue + categorie.absSumThisMonth
+                            let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
                         }
@@ -338,11 +338,11 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "ThisYear" {
                     let convertedArray = expenseArray
-                        .sorted(by: { $1.sumThisYear > $0.sumThisYear })
+//                        .sorted(by: { $1.sumThisYear > $0.sumThisYear })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumThisYear
-                            let tuple = (categorie.category, rangeEnd..<initialValue)
+                            let rangeEnd = initialValue + categorie.absSumThisYear
+                            let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
                         }
@@ -354,11 +354,11 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "PreviousYear" {
                     let convertedArray = expenseArray
-                        .sorted(by: { $1.sumPreviousYear > $0.sumPreviousYear })
+//                        .sorted(by: { $1.sumPreviousYear > $0.sumPreviousYear })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumPreviousYear
-                            let tuple = (categorie.category, rangeEnd..<initialValue)
+                            let rangeEnd = initialValue + categorie.absSumPreviousYear
+                            let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
                         }
@@ -370,11 +370,11 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "AllData" {
                     let convertedArray = expenseArray
-                        .sorted(by: { $1.categorySum > $0.categorySum })
+//                        .sorted(by: { $1.categorySum > $0.categorySum })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.categorySum
-                            let tuple = (categorie.category, rangeEnd..<initialValue)
+                            let rangeEnd = initialValue + categorie.absCategorySum
+                            let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
                         }
@@ -387,10 +387,10 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "PreviousMonth" {
                     let convertedArray = incomeArray
-                        .sorted(by: { $0.sumPreviousMonth > $1.sumPreviousMonth })
+//                        .sorted(by: { $0.sumPreviousMonth > $1.sumPreviousMonth })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumPreviousMonth
+                            let rangeEnd = initialValue + categorie.absSumPreviousMonth
                             let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
@@ -403,10 +403,10 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "ThisMonth" {
                     let convertedArray = incomeArray
-                        .sorted(by: { $0.sumThisMonth > $1.sumThisMonth })
+//                        .sorted(by: { $0.sumThisMonth > $1.sumThisMonth })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumThisMonth
+                            let rangeEnd = initialValue + categorie.absSumThisMonth
                             let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
@@ -419,10 +419,10 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "ThisYear" {
                     let convertedArray = incomeArray
-                        .sorted(by: { $0.sumThisYear > $1.sumThisYear })
+//                        .sorted(by: { $0.sumThisYear > $1.sumThisYear })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumThisYear
+                            let rangeEnd = initialValue + categorie.absSumThisYear
                             let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
@@ -435,10 +435,10 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "PreviousYear" {
                     let convertedArray = incomeArray
-                        .sorted(by: { $0.sumPreviousYear > $1.sumPreviousYear })
+//                        .sorted(by: { $0.sumPreviousYear > $1.sumPreviousYear })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.sumPreviousYear
+                            let rangeEnd = initialValue + categorie.absSumPreviousYear
                             let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple
@@ -451,10 +451,10 @@ extension SummaryView {
                 
                 if selectedPeriodSlice == "AllData" {
                     let convertedArray = incomeArray
-                        .sorted(by: { $0.categorySum > $1.categorySum })
+//                        .sorted(by: { $0.categorySum > $1.categorySum })
                         .compactMap { categorie -> (String, Range<Double>)
                             in
-                            let rangeEnd = initialValue + categorie.categorySum
+                            let rangeEnd = initialValue + categorie.absCategorySum
                             let tuple = (categorie.category, initialValue..<rangeEnd)
                             initialValue = rangeEnd
                             return tuple

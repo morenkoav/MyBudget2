@@ -35,5 +35,7 @@ class Transactions {
         self.memo = memo
     }
     @Transient
-    var absAmount = abs(amount)
+    var absAmount: Double {
+        abs(amount)
+    }
 }

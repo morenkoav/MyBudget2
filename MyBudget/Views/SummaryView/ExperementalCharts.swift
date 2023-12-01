@@ -21,8 +21,6 @@ extension SummaryView {
                     .frame(height: 200)
                 operationsPerPeriod()
                     .frame(height: 200)
-                categoryStructureChartAlter()
-                    .frame(height: 300)
             }
             .navigationTitle("Аналитика")
             .navigationBarTitleDisplayMode(.inline)
