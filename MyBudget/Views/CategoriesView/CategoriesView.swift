@@ -53,7 +53,7 @@ struct CategoriesView: View {
                         .tag("AllData")
                 })
                 .pickerStyle(.menu)
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: 50)
                 .background(.blue.gradient.opacity(0.6), in: .rect(cornerRadius: 15))
                 .tint(.white)
                 .padding(.horizontal)

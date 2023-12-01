@@ -134,11 +134,11 @@ extension SummaryView {
         return Chart(operationCategory == "Expense" ? expenseArray : incomeArray) { categorie in
             SectorMark(
                 angle: .value("Cумма",
-                              selectedPeriodSlice == "PreviousMonth" ? categorie.sumPreviousMonth :
-                                selectedPeriodSlice == "ThisMonth" ? categorie.sumThisMonth :
-                                selectedPeriodSlice == "ThisYear" ? categorie.sumThisYear :
-                                selectedPeriodSlice == "PreviousYear" ? categorie.sumPreviousYear :
-                                categorie.categorySum),
+                              selectedPeriodSlice == "PreviousMonth" ? categorie.absSumPreviousMonth :
+                                selectedPeriodSlice == "ThisMonth" ? categorie.absSumThisMonth :
+                                selectedPeriodSlice == "ThisYear" ? categorie.absSumThisYear :
+                                selectedPeriodSlice == "PreviousYear" ? categorie.absSumPreviousYear :
+                                categorie.absCategorySum),
                 innerRadius: .ratio(0.620),
                 outerRadius: categorySelection == categorie.category ? 130 : 120,
                 angularInset: 1.5
@@ -150,6 +150,7 @@ extension SummaryView {
         .chartAngleSelection(value: $selectedSector)
         .chartLegend(position: .bottom, alignment: .center, spacing: 10)
         .chartLegend(.hidden)
+        .scaledToFit()
         .onChange(of: selectedSector, initial: false) {oldValue, newValue in
             if let newValue {
                 getSelectedCategory(Int(newValue))
@@ -185,14 +186,14 @@ extension SummaryView {
         }
         
         let sortedExpenseArray = expenseArray
-            .sorted(by: { $1.sumThisMonth > $0.sumThisMonth })
+            .sorted(by: { $0.absSumThisMonth > $1.absSumThisMonth })
         
         let sortedIncomeArray = incomeArray
             .sorted(by: {$0.sumThisMonth > $1.sumThisMonth})
 
         return Chart(operationCategory == "Expense" ? sortedExpenseArray : sortedIncomeArray) { category in
                 BarMark(
-                    x: .value("Сумма", category.sumThisMonth),
+                    x: .value("Сумма", category.absSumThisMonth),
                     y: .value("Категория", category.category)
                 )
             }
@@ -226,65 +227,5 @@ extension SummaryView {
             }
         }
     }
-    
-    
-    func categoryStructureChartAlter() -> some View {
-        
-        let expenseArray = categories.filter {
-            $0.operation == "Expense"
-        }
-        
-        let incomeArray = categories.filter {
-            $0.operation == "Income"
-        }
-        
-        return Chart(operationCategory == "Expense" ? expenseArray : incomeArray) { categorie in
-            SectorMark(
-                angle: .value("Cумма",
-                              selectedPeriodSlice == "PreviousMonth" ? categorie.sumPreviousMonth :
-                                selectedPeriodSlice == "ThisMonth" ? categorie.sumThisMonth :
-                                selectedPeriodSlice == "ThisYear" ? categorie.sumThisYear :
-                                selectedPeriodSlice == "PreviousYear" ? categorie.sumPreviousYear :
-                                categorie.categorySum),
-                innerRadius: .ratio(0.620),
-                outerRadius: categorySelection == categorie.category ? 130 : 120,
-                angularInset: 1.5
-            )
-            .cornerRadius(5.0)
-            .foregroundStyle(by: .value("Категория", categorie.category))
-            .opacity(categorySelection == nil ? 1: (categorySelection == categorie.category ? 1 : 0.5))
-        }
-        .chartAngleSelection(value: $selectedSector)
-        .chartLegend(position: .bottom, alignment: .center, spacing: 10)
-        .chartLegend(.hidden)
-        .onChange(of: selectedSector, initial: false) {oldValue, newValue in
-            if let newValue {
-                getSelectedCategory(Int(newValue))
-            } else {
-                categorySelection = nil
-            }
-        }
-        .chartBackground { chartProxy in
-            GeometryReader { geometry in
-                let frame = geometry[chartProxy.plotFrame!]
-                VStack {
-                    Text(categorySelection ?? "")
-                        .font(.title)
-                    Text(getCategoryAmount(categorySelection ?? "")?.formatted() ?? "")
-                        .foregroundStyle(operationCategory == "Expense" ? .red : .green)
-                        .bold()
-                        .font(.title2)
-                    Text(getCategoryAmount(categorySelection ?? "") != nil ? "\(getShareAmount()?.rounded(toPosition: 2).formatted() ?? "")%" : "")
-                }
-                .position(x: frame.midX, y: frame.midY)
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    
 }
 
