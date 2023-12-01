@@ -15,11 +15,11 @@ extension SummaryView {
         return NavigationStack {
             operationCategoryPicker()
             ScrollView {
-                categoryStructureChart()
+                incomeDynamicChart()
+                    .frame(height: 300)
+                expenseDynamicChart()
                     .frame(height: 300)
                 categoriesBarChart()
-                    .frame(height: 200)
-                operationsPerPeriod()
                     .frame(height: 200)
             }
             .navigationTitle("Аналитика")

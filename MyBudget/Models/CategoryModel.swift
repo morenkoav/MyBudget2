@@ -28,7 +28,7 @@ let dayOfToday = calendar.startOfDay(for: currentDate)
 
 // MARK: - Начало и окончание текущего месяца
 let startOfCurrentMonth = calendar.date(from: components)!
-let endOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: 0), to: startOfCurrentMonth)!
+let endOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfCurrentMonth)!
 
 // MARK: - Начало и окончание предыдущего месяца
 let startOfPreviousMonth = calendar.date(byAdding: DateComponents(month: -1, day: 0), to: startOfCurrentMonth)!

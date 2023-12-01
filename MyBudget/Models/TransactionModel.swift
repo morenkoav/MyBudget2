@@ -36,7 +36,6 @@ class Transactions {
     }
 
     @Transient var absAmount: Double {
-    var absAmount: Double {
         abs(amount)
     }
 }

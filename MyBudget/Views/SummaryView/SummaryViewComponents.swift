@@ -200,32 +200,109 @@ extension SummaryView {
             .padding()
     }
     
-    func operationsPerPeriod() -> some View {
+    func incomeDynamicChart() -> some View {
         let incomeTransactions = transactions.filter {
             $0.category?.operation == "Income"
         }
         
+        let monthlyIncome = incomeTransactions.reduce(into: [Date: Double]()) {
+            result, income in
+            let components = Calendar.current.dateComponents([.month, .year], from: income.date)
+            let month = calendar.date(from: components)!
+            result[month, default: 0] += income.absAmount
+        }.map {
+            MonthlyIncome(id: UUID(), month: $0.key, sum: $0.value)
+        }
+        
+        return VStack {
+            HStack {
+                Text("Расходы")
+                    .font(.headline.bold())
+                Spacer()
+            }
+            Chart(monthlyIncome, id: \.month) { income in
+                BarMark(
+                    x: .value("Месяц", income.month, unit: .month),
+                    y: .value("Сумма", income.sum)
+                )
+                .foregroundStyle(.green)
+            }
+            .chartScrollableAxes(.horizontal)
+            .chartXVisibleDomain(length: 3600 * 24 * 30 * 12)
+            .chartScrollTargetBehavior(
+                .valueAligned(
+                    matching: .init(month: 0),
+                    majorAlignment: .matching(.init(month: 12))))
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .month)) { _ in
+                    AxisGridLine()
+                    AxisTick()
+                    AxisValueLabel(format: .dateTime.month(.abbreviated), centered: true)
+                }
+            }
+        }
+        .padding()
+            
+    }
+    
+    func expenseDynamicChart() -> some View {
         let expenseTransactions = transactions.filter {
             $0.category?.operation == "Expense"
         }
         
-        return Chart {
-            ForEach(expenseTransactions, id:\.date) { expense in
-                BarMark(
-                    x: .value("Дата", expense.date, unit: .month),
-                    y: .value("Категория", -expense.amount)
-                )
-                .foregroundStyle(.red.opacity(0.5))
+        let monthlyExpense = expenseTransactions.reduce(into: [Date: Double]()) {
+            result, expense in
+            let components = Calendar.current.dateComponents([.month, .year], from: expense.date)
+            let month = calendar.date(from: components)!
+            result[month, default: 0] += expense.absAmount
+        }.map {
+            MonthlyExpense(id: UUID(), month: $0.key, sum: $0.value)
+        }
+        
+        return VStack {
+            HStack {
+                Text("Расходы")
+                    .font(.headline.bold())
+                Spacer()
             }
-            
-            ForEach(incomeTransactions, id:\.date) { income in
+            Chart(monthlyExpense, id: \.month) { expense in
                 BarMark(
-                    x: .value("Дата", income.date, unit:.month),
-                    y: .value("Категория", income.amount)
+                    x: .value("Месяц", expense.month, unit: .month),
+                    y: .value("Сумма", expense.sum)
                 )
-                .foregroundStyle(.green.opacity(0.5))
+                .foregroundStyle(.red)
+            }
+            .chartScrollableAxes(.horizontal)
+            .chartXVisibleDomain(length: 3600 * 24 * 30 * 12)
+            .chartScrollTargetBehavior(.valueAligned(unit: 1))
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .month)) { _ in
+                    AxisGridLine()
+                    AxisTick()
+                    AxisValueLabel(format: .dateTime.month(.abbreviated), centered: true)
+                }
             }
         }
+        .padding()
+            
     }
+    
+    
+    
 }
 
+
+
+struct MonthlyIncome: Identifiable {
+    var id: UUID
+    
+    let month: Date
+    let sum: Double
+}
+
+struct MonthlyExpense: Identifiable {
+    var id: UUID
+    
+    let month: Date
+    let sum: Double
+}
