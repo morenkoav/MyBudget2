@@ -14,33 +14,38 @@ extension SummaryView {
         
         func incomeCategoriesBarChart() -> some View {
             
-            let incomeArray = categories.filter {
-                $0.operation == "Income"
-            }
-            
             return Group {
                 if selectedPeriodSlice == "PreviousMonth" {
+                    let incomeArray = categories.filter {
+                        $0.operation == "Income" && $0.sumPreviousMonth > 0
+                    }
                     let sortedIncomeArray = incomeArray
                         .sorted(by: {$0.sumPreviousMonth > $1.sumPreviousMonth})
                     
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumPreviousMonth),
-                            y: .value("Категория", category.category)
+                            y: .value("Категория", category.category),
+                            width: MarkDimension.fixed(100)
                         )
                         .foregroundStyle(.green)
                     }
+                    
                     .padding()
                 }
                 
                 if selectedPeriodSlice == "ThisMonth" {
+                    let incomeArray = categories.filter {
+                        $0.operation == "Income" && $0.sumThisMonth > 0
+                    }
                     let sortedIncomeArray = incomeArray
                         .sorted(by: {$0.sumThisMonth > $1.sumThisMonth})
                     
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumThisMonth),
-                            y: .value("Категория", category.category)
+                            y: .value("Категория", category.category),
+                            width: MarkDimension.fixed(100)
                         )
                         .foregroundStyle(.green)
                     }
@@ -48,13 +53,17 @@ extension SummaryView {
                 }
                 
                 if selectedPeriodSlice == "ThisYear" {
+                    let incomeArray = categories.filter {
+                        $0.operation == "Income" && $0.absSumThisYear > 0
+                    }
                     let sortedIncomeArray = incomeArray
                         .sorted(by: {$0.sumThisYear > $1.sumThisYear})
                     
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumThisYear),
-                            y: .value("Категория", category.category)
+                            y: .value("Категория", category.category),
+                            width: MarkDimension.fixed(100)
                         )
                         .foregroundStyle(.green)
                     }
@@ -62,13 +71,17 @@ extension SummaryView {
                 }
                 
                 if selectedPeriodSlice == "PreviousYear" {
+                    let incomeArray = categories.filter {
+                        $0.operation == "Income" && $0.sumPreviousYear > 0
+                    }
                     let sortedIncomeArray = incomeArray
                         .sorted(by: {$0.sumPreviousYear > $1.sumPreviousYear})
                     
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumPreviousYear),
-                            y: .value("Категория", category.category)
+                            y: .value("Категория", category.category),
+                            width: MarkDimension.fixed(100)
                         )
                         .foregroundStyle(.green)
                     }
@@ -76,13 +89,17 @@ extension SummaryView {
                 }
                 
                 if selectedPeriodSlice == "AllData" {
+                    let incomeArray = categories.filter {
+                        $0.operation == "Income" && $0.categorySum > 0
+                    }
                     let sortedIncomeArray = incomeArray
                         .sorted(by: {$0.categorySum > $1.categorySum})
                     
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absCategorySum),
-                            y: .value("Категория", category.category)
+                            y: .value("Категория", category.category),
+                            width: MarkDimension.fixed(100)
                         )
                         .foregroundStyle(.green)
                     }
@@ -97,12 +114,13 @@ extension SummaryView {
             
             func expenseCategoriesBarChart() -> some View {
                 
-                let expenseArray = categories.filter {
-                    $0.operation == "Expense"
-                }
+
 
                 return Group {
                     if selectedPeriodSlice == "PreviousMonth" {
+                        let expenseArray = categories.filter {
+                            $0.operation == "Expense" && $0.absSumPreviousMonth > 0
+                        }
                         let sortedExpenseArray = expenseArray
                             .sorted(by: { $0.absSumPreviousMonth > $1.absSumPreviousMonth })
                         
@@ -117,6 +135,9 @@ extension SummaryView {
                     }
                     
                     if selectedPeriodSlice == "ThisMonth" {
+                        let expenseArray = categories.filter {
+                            $0.operation == "Expense" && $0.absSumThisMonth > 0
+                        }
                         let sortedExpenseArray = expenseArray
                             .sorted(by: { $0.absSumThisMonth > $1.absSumThisMonth })
                         
@@ -131,6 +152,9 @@ extension SummaryView {
                     }
                     
                     if selectedPeriodSlice == "ThisYear" {
+                        let expenseArray = categories.filter {
+                            $0.operation == "Expense" && $0.absSumThisYear > 0
+                        }
                         let sortedExpenseArray = expenseArray
                             .sorted(by: { $0.absSumThisYear > $1.absSumThisYear })
                         
@@ -145,6 +169,9 @@ extension SummaryView {
                     }
                     
                     if selectedPeriodSlice == "PreviousYear" {
+                        let expenseArray = categories.filter {
+                            $0.operation == "Expense" && $0.absSumPreviousYear > 0
+                        }
                         let sortedExpenseArray = expenseArray
                             .sorted(by: { $0.absSumPreviousYear > $1.absSumPreviousYear })
                         
@@ -159,6 +186,9 @@ extension SummaryView {
                     }
                     
                     if selectedPeriodSlice == "AllData" {
+                        let expenseArray = categories.filter {
+                            $0.operation == "Expense" && $0.absCategorySum > 0
+                        }
                         let sortedExpenseArray = expenseArray
                             .sorted(by: { $0.absCategorySum > $1.absCategorySum })
                         

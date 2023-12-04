@@ -57,8 +57,11 @@ extension BudgetView {
 //    MARK: - Вычисление суммы операций по отслеживаемым счетам
         
         func operationsSum() -> Double {
-            
-            let transactionsSum = transactions.reduce(0) { result, item in
+            let incomeTransactions = transactions.filter {
+                $0.category?.operation == "Income"
+            }
+            let transactionsSum = incomeTransactions.reduce(0) { result, item in
+
                 return result + item.amount
             }
             return transactionsSum
@@ -76,8 +79,9 @@ extension BudgetView {
     }
     
     func moneyToAssign() -> Double {
-        
+
         return startBalance() + operationsSum() - budgetedMoney()
+        
         
     }
     

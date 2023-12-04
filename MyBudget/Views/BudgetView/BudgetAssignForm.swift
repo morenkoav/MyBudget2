@@ -1,26 +1,24 @@
 //
-//  EditBudgetForm.swift
+//  BudgetAssinForm.swift
 //  MyBudget
 //
-//  Created by Anton Morenko on 03.12.2023.
+//  Created by Anton Morenko on 04.12.2023.
 //
 
 import SwiftUI
 
 extension BudgetView {
     
-//  MARK: - Форма добавления / редактирования бюджета
-    
-    func editBudgetForm() -> some View {
+    func assignMoneyToBudget() -> some View {
         NavigationStack {
             List {
-                categoryPicker()
+                
                 
                 TextField("0", value: $limit, format: .number)
                     .keyboardType(.decimalPad)
                 
             }
-            .navigationTitle(isUpdatingMode ? "Изменить запись" : "Добавить запись")
+            .navigationTitle("Корректировка бюджета")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -32,7 +30,7 @@ extension BudgetView {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(isUpdatingMode ? "Изменить" : "Добавить") {
+                    Button("Изменить") {
                         if isUpdatingMode {
                             updateBudgeteData()
                             clearAndCloseBudgetForm()
@@ -45,11 +43,9 @@ extension BudgetView {
                 }
             }
         }
-        .presentationDetents([.height(300)])
+        .presentationDetents([.height(450)])
         .presentationCornerRadius(25)
         .interactiveDismissDisabled()
     }
-    
-    
     
 }

@@ -11,27 +11,32 @@ extension BudgetView {
     
     func budgetList() -> some View {
         
-        return List(budgets) { budget in
-            HStack {
+        return List(sortedBudgets) { budget in
+            HStack(spacing:10) {
                 Image(budget.category?.image ?? "")
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 30, maxHeight: 30)
                 Text(budget.category?.category ?? "")
+                    .font(.subheadline)
                     .lineLimit(2)
-                    .frame(maxWidth: .infinity/3)
-                Spacer()
+                    .frame(maxWidth: 110, alignment: .leading)
+//                Spacer()
                 VStack(alignment: .leading) {
                     Text("Бюджет: \(budget.limit.formatted())")
                     Text("Расход: \(budget.category?.absCategorySum.formatted() ?? "")")
                 }
                 .font(.caption)
                 .bold()
+                .frame(maxWidth: .infinity, alignment: .leading)
+//                Spacer()
                 Text(budget.budgetRemain.formatted())
                     .foregroundStyle(budget.budgetRemain >= 0 ? .green : .red)
                     .bold()
                     .font(.subheadline)
+                    .frame(maxWidth: 80, alignment: .trailing)
             }
+            .background(budget.budgetRemain < 0 ? .red.opacity(0.2) : .clear)
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                 
                 Button(role: .destructive, action: {budgetContext.delete(budget)}, label: {

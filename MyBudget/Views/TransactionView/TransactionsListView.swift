@@ -26,10 +26,10 @@ extension TransactionView {
                     Text(transaction.date.formatted(date: Date.FormatStyle.DateStyle.abbreviated, time: Date.FormatStyle.TimeStyle.omitted))
                         .font(.footnote)
                     HStack {
-                        Text(transaction.accaunt?.accauntName ?? "")
+                        Text("\(transaction.accaunt?.accauntName ?? ""):")
                             .font(.caption2)
                         if !transaction.memo.isEmpty {
-                            Text("-\(transaction.memo)")
+                            Text("\(transaction.memo)")
                                 .font(.caption)
                                 .lineLimit(1)
                         }

@@ -23,6 +23,8 @@ struct BudgetView: View {
     
     @Query let budgets: [Budgets]
     
+    @Query(filter: #Predicate<Budgets> {$0.category != nil}, sort: \.limit, order: .reverse) let sortedBudgets: [Budgets]
+    
     @Query let transactions: [Transactions]
     
     @Query(filter: #Predicate<Accaunts> {$0.isTrackingAccaunt == true}) let trackingAccaunts: [Accaunts]
@@ -33,10 +35,9 @@ struct BudgetView: View {
             VStack{
                 
                 budgetStatus()
-                // Прямоугольное поле со скругленными углами, показывающее сумму к распределению, дефицит бюджет, цвет меняется на красный (дефицит) и зеленый - ненулевая сумма к распределению
                 
                 budgetList()
-                // Лист с выводом категорий, лимита, остатка с возможностью удалить
+
             }
             .overlay {
                 if budgets.isEmpty {
@@ -71,4 +72,5 @@ struct BudgetView: View {
 
 #Preview {
     BudgetView()
+        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self, Budgets.self])
 }
