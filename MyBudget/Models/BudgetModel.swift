@@ -17,15 +17,13 @@ class Budgets {
     
     @Transient
     var budgetRemain: Double {
-        return limit - (category?.categorySum ?? 0)
+        return limit - (category?.absCategorySum ?? 0)
     }
     
     init(
-        category: Categories,
         limit: Double
     ) {
         self.id = UUID()
-        self.category = category
         self.limit = limit
     }
     

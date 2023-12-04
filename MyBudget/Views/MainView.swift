@@ -34,10 +34,17 @@ struct MainView: View {
                         .font(.title)
                     Text("Операции")
                 }
+            BudgetView()
+                .tag("Budget")
+                .tabItem {
+                    Image(systemName: "briefcase.fill")
+                        .font(.title)
+                    Text("Бюджет")
+                }
             SummaryView()
                 .tag("Summary")
                 .tabItem {
-                    Image(systemName: "s.circle.fill")
+                    Image(systemName: "chart.pie.fill")
                         .font(.title)
                     Text("Обзор")
                 }

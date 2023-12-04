@@ -23,6 +23,9 @@ struct SummaryView: View {
     
     @State var showAdditionalInfo = false
     
+    @State var selectedReport = "CashFlow"
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -39,10 +42,10 @@ struct SummaryView: View {
                     Button {
                         showAdditionalInfo.toggle()
                     } label: {
-                        Image(systemName: "chart.bar.fill")
+                        Image(systemName: "chart.bar.doc.horizontal")
                             .font(.title2)
                     }
-                    .foregroundStyle(.blue.gradient.opacity(0.6))
+                    .foregroundStyle(.blue.gradient.opacity(0.9))
 
                 })
             }

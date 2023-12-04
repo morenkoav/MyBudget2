@@ -175,30 +175,6 @@ extension SummaryView {
         }
     }
    
-//    MARK: - Гистограмма категорий расходов и доходов
-    
-    func categoriesBarChart() -> some View {
-        let expenseArray = categories.filter {
-            $0.operation == "Expense"
-        }
-        let incomeArray = categories.filter {
-            $0.operation == "Income"
-        }
-        
-        let sortedExpenseArray = expenseArray
-            .sorted(by: { $0.absSumThisMonth > $1.absSumThisMonth })
-        
-        let sortedIncomeArray = incomeArray
-            .sorted(by: {$0.sumThisMonth > $1.sumThisMonth})
-
-        return Chart(operationCategory == "Expense" ? sortedExpenseArray : sortedIncomeArray) { category in
-                BarMark(
-                    x: .value("Сумма", category.absSumThisMonth),
-                    y: .value("Категория", category.category)
-                )
-            }
-            .padding()
-    }
     
     func incomeDynamicChart() -> some View {
         let incomeTransactions = transactions.filter {
@@ -216,7 +192,7 @@ extension SummaryView {
         
         return VStack {
             HStack {
-                Text("Расходы")
+                Text("Доходы")
                     .font(.headline.bold())
                 Spacer()
             }
@@ -287,22 +263,119 @@ extension SummaryView {
             
     }
     
-    
-    
-}
+    func cashFlowDynamicChart() -> some View {
+        let incomeTransactions = transactions.filter {
+            $0.category?.operation == "Income"
+        }
+        
+        let monthlyIncome = incomeTransactions.reduce(into: [Date: Double]()) {
+            result, income in
+            let components = Calendar.current.dateComponents([.month, .year], from: income.date)
+            let month = calendar.date(from: components)!
+            result[month, default: 0] += income.absAmount
+        }.map {
+            MonthlyIncome(id: UUID(), month: $0.key, sum: $0.value)
+        }
 
-
-
-struct MonthlyIncome: Identifiable {
-    var id: UUID
+        let expenseTransactions = transactions.filter {
+            $0.category?.operation == "Expense"
+        }
+        
+        let monthlyExpense = expenseTransactions.reduce(into: [Date: Double]()) {
+            result, expense in
+            let components = Calendar.current.dateComponents([.month, .year], from: expense.date)
+            let month = calendar.date(from: components)!
+            result[month, default: 0] += expense.absAmount
+        }.map {
+            MonthlyExpense(id: UUID(), month: $0.key, sum: $0.value)
+        }
+        
+        return VStack {
+            HStack {
+                Text("Денежный поток")
+                    .font(.headline.bold())
+                Spacer()
+            }
+            Chart {
+                ForEach(monthlyIncome, id: \.month) { income in
+                    LineMark(
+                        x: .value("Дата", income.month, unit: .month),
+                        y: .value("Доход", income.sum),
+                        series: .value("Месяц",  "Доход")
+                    )
+                    
+                }
+                .foregroundStyle(.green)
+                .interpolationMethod(.cardinal)
+                .lineStyle(StrokeStyle(lineWidth: 3))
+                .symbolSize(100)
+                
+                ForEach(monthlyExpense, id: \.month) { expense in
+                    LineMark(
+                        x: .value("Дата", expense.month, unit: .month),
+                        y: .value("Расход", expense.sum),
+                        series: .value("Месяц",  "Расход")
+                    )
+                    
+                }
+                .foregroundStyle(.red)
+                .interpolationMethod(.cardinal)
+                .lineStyle(StrokeStyle(lineWidth: 3))
+                .symbolSize(100)
+                
+            }
+            .chartScrollableAxes(.horizontal)
+            .chartXVisibleDomain(length: 3600 * 24 * 30 * 12)
+            .chartScrollTargetBehavior(.valueAligned(unit: 1))
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .month)) { _ in
+                    AxisGridLine()
+                    AxisTick()
+                    AxisValueLabel(format: .dateTime.month(.abbreviated), centered: true)
+                }
+            }
+        }
+        .padding()
+    }
     
-    let month: Date
-    let sum: Double
-}
+    func cashFlowChart() -> some View {
+        
+        
+        let monthlyCF = transactions.reduce(into: [Date: Double]()) {
+            result, cashFlow in
+            let components = Calendar.current.dateComponents([.month, .year], from: cashFlow.date)
+            let month = calendar.date(from: components)!
+            result[month, default: 0] += cashFlow.amount
+        }.map {
+            MonthlyCashFlow(id: UUID(), month: $0.key, sum: $0.value)
+        }
+        
+        return VStack {
+            HStack {
+                Text("Результат")
+                    .font(.headline.bold())
+                Spacer()
+            }
+            
+            Chart(monthlyCF) { cf in
+                BarMark(
+                    x: .value("Месяц", cf.month, unit: .month),
+                    y: .value("Результат", cf.sum)
+                )
+                .foregroundStyle(cf.sum < 0 ? .red : .green)
+            }
+            .chartScrollableAxes(.horizontal)
+            .chartXVisibleDomain(length: 3600 * 24 * 30 * 12)
+            .chartScrollTargetBehavior(.valueAligned(unit: 1))
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .month)) { _ in
+                    AxisGridLine()
+                    AxisTick()
+                    AxisValueLabel(format: .dateTime.month(.abbreviated), centered: true)
+                }
+            }
+        }
+        .padding()
+    }
 
-struct MonthlyExpense: Identifiable {
-    var id: UUID
-    
-    let month: Date
-    let sum: Double
 }

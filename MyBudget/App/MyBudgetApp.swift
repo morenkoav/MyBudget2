@@ -14,7 +14,7 @@ struct MyBudgetApp: App {
         WindowGroup {
             MainView()
         }
-        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self])
+        .modelContainer(for: [Accaunts.self, Categories.self, Transactions.self, Budgets.self])
         
         
     }
