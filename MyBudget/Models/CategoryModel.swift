@@ -17,6 +17,7 @@ class Categories {
     var image: String
     @Relationship(deleteRule: .cascade, inverse: \Transactions.category)
     var transactions = [Transactions]()
+    @Relationship(deleteRule: .cascade, inverse: \Budgets.category)
     var budgets = [Budgets]()
     
     init(

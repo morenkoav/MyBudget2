@@ -16,6 +16,7 @@ struct BudgetView: View {
     @State var isUpdatingMode = false
     
     @State var limit: Double = 0
+    @State var newLimit: Double = 0
     @State var category: Categories?
     @State var budgetToEdit: Budgets?
     
@@ -66,6 +67,11 @@ struct BudgetView: View {
             
         } content: {
             editBudgetForm()
+        }
+        .sheet(isPresented: $isUpdatingMode) {
+            
+        } content: {
+            assignMoneyToBudget()
         }
     }
 }

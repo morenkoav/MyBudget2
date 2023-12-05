@@ -16,11 +16,13 @@ extension BudgetView {
             List {
                 categoryPicker()
                 
-                TextField("0", value: $limit, format: .number)
-                    .keyboardType(.decimalPad)
-                
+                HStack {
+                    Text("Лимит: ")
+                    TextField("0", value: $limit, format: .number)
+                        .keyboardType(.decimalPad)
+                }
             }
-            .navigationTitle(isUpdatingMode ? "Изменить запись" : "Добавить запись")
+            .navigationTitle(isUpdatingMode ? "Изменить запись" : "Добавить бюджет")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -45,7 +47,7 @@ extension BudgetView {
                 }
             }
         }
-        .presentationDetents([.height(300)])
+        .presentationDetents([.height(250)])
         .presentationCornerRadius(25)
         .interactiveDismissDisabled()
     }

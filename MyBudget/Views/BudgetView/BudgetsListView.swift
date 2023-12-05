@@ -21,7 +21,6 @@ extension BudgetView {
                     .font(.subheadline)
                     .lineLimit(2)
                     .frame(maxWidth: 110, alignment: .leading)
-//                Spacer()
                 VStack(alignment: .leading) {
                     Text("Бюджет: \(budget.limit.formatted())")
                     Text("Расход: \(budget.category?.absCategorySum.formatted() ?? "")")
@@ -29,7 +28,6 @@ extension BudgetView {
                 .font(.caption)
                 .bold()
                 .frame(maxWidth: .infinity, alignment: .leading)
-//                Spacer()
                 Text(budget.budgetRemain.formatted())
                     .foregroundStyle(budget.budgetRemain >= 0 ? .green : .red)
                     .bold()
@@ -44,11 +42,10 @@ extension BudgetView {
                 })
                 
                 Button(action: {
-                    isUpdatingMode.toggle()
                     category = budget.category
                     limit = budget.limit
                     budgetToEdit = budget
-                    showEditBudgetForm.toggle()
+                    isUpdatingMode.toggle()
                 },
                        label: {
                     Image(systemName: "pencil")
