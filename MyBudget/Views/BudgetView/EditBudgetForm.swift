@@ -12,7 +12,8 @@ extension BudgetView {
 //  MARK: - Форма добавления / редактирования бюджета
     
     func editBudgetForm() -> some View {
-        NavigationStack {
+        
+        return NavigationStack {
             List {
                 categoryPicker()
                 

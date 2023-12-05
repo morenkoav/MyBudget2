@@ -12,7 +12,7 @@ extension BudgetView {
 //    MARK: - Обновление данных бюджета
         
         func updateBudgeteData() {
-            
+            newLimit = limit + limitPlus - limitMinus
             budgetToEdit?.category = category
             budgetToEdit?.limit = newLimit
         }

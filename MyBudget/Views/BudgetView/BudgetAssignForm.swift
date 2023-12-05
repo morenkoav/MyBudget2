@@ -6,51 +6,70 @@
 //
 
 import SwiftUI
+import SwiftData
 
 extension BudgetView {
     
     func assignMoneyToBudget() -> some View {
-        NavigationStack {
+
+        
+        return NavigationStack {
             List {
-                
-                HStack {
+                HStack{
                     Image(category?.image ?? "")
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 30, maxHeight: 30)
-                    Text(budgetToEdit?.category?.category ?? "")
+                    Text(category?.category ?? "")
                 }
-                Text("Текущий лимит: \(limit.formatted())")
-                HStack {
-                    Text("Расход: ")
-                    Text(budgetToEdit?.category?.absCategorySum.formatted() ?? "")
-                }
-                if budgetToEdit?.budgetRemain ?? 0 >= 0 {
-                    Text("Остаток: \(budgetToEdit?.budgetRemain.formatted() ?? "")")
-                        .foregroundStyle(.green)
-                } else {
-                    Text("Дефицит: \(budgetToEdit?.budgetRemain.formatted() ?? "")")
+                Text("Текущий лимит:  \(budgetToEdit?.limit.formatted() ?? "")")
+                Text("Расходы:  \(budgetToEdit?.category?.absCategorySum.formatted() ?? "")")
+                
+                if budgetToEdit?.budgetRemain ?? 0 < 0 {
+                    Text("Дефицит:  \(budgetToEdit?.budgetRemain.formatted() ?? "")")
                         .foregroundStyle(.red)
+                        .bold()
+                } else {
+                    Text("Остаток:  \(budgetToEdit?.budgetRemain.formatted() ?? "")")
+                        .foregroundStyle(.green)
+                        .bold()
                 }
-                
                 HStack {
-                    Text("Новый лимит:")
-                    TextField("0", value: $newLimit, format: .number)
-                        .keyboardType(.decimalPad)
+                    Image(systemName: "minus.circle.fill")
+                        .foregroundStyle(.red)
+                    Text("Снять:")
+                    TextField("0", value: $limitMinus, format: .number)
+                        .keyboardType(.numbersAndPunctuation)
+                        .bold()
                 }
-                
-                Menu("Быстрые действия") {
-                    if budgetToEdit?.budgetRemain ?? 0 < 0 {
-                        Button("Покрыть дефицит", action: {
-                            newLimit = limit - (budgetToEdit?.budgetRemain ?? 0)}
-                        )
+                HStack {
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundStyle(.green)
+                    Text("Добавить:")
+                    TextField("0", value: $limitPlus, format: .number)
+                        .keyboardType(.numbersAndPunctuation)
+                        .bold()
+                }
+
+//                HStack {
+//                    Text("Новый лимит:")
+//                    TextField("0", value: $newLimit, format: .number)
+//                        .keyboardType(.numbersAndPunctuation)
+//                        .bold()
+//                }
+                HStack{
+                    Spacer()
+                    Menu("Обнулить...") {
+                        Button("Обнулить остаток", action: {limitMinus =  (budgetToEdit?.budgetRemain ?? 0) })
+                        
+                        if budgetToEdit?.budgetRemain ?? 0 < 0 {
+                            Button("Компенсировать дефицит", action: {limitPlus = -(budgetToEdit?.budgetRemain ?? 0) })
+                        }
+                        
+                        Button("+Расход пред. месяца", action: {
+                            limitPlus = budgetToEdit?.category?.absSumPreviousMonth ?? 0})
                     }
-                    Button("Обнулить остаток", action: {
-                        newLimit = limit - (budgetToEdit?.budgetRemain ?? 0)}
-                    )
-                    Button("+Расход прошлого месяца", action: {
-                        newLimit = limit + (budgetToEdit?.category?.absSumPreviousMonth ?? 0)}
-                    )
+                    Spacer()
                 }
                 
             }
@@ -59,6 +78,7 @@ extension BudgetView {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Отмена") {
+                        showEditBudgetForm = false
                         isUpdatingMode = false
                     }
                     .tint(.red)
@@ -66,13 +86,8 @@ extension BudgetView {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Изменить") {
-                        if isUpdatingMode {
                             updateBudgeteData()
                             clearAndCloseBudgetForm()
-                        } else {
-                            addBudget()
-                            clearAndCloseBudgetForm()
-                        }
                     }
                     .disabled(!formIsValid())
                 }
@@ -82,5 +97,4 @@ extension BudgetView {
         .presentationCornerRadius(25)
         .interactiveDismissDisabled()
     }
-    
 }

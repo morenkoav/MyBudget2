@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 extension BudgetView {
     
     func budgetList() -> some View {
         
-        return List(sortedBudgets) { budget in
+        return List(budgets) { budget in
             HStack(spacing:10) {
                 Image(budget.category?.image ?? "")
                     .resizable()
@@ -33,25 +34,28 @@ extension BudgetView {
                     .bold()
                     .font(.subheadline)
                     .frame(maxWidth: 80, alignment: .trailing)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        
+                        Button(role: .destructive, action: {budgetContext.delete(budget)}, label: {
+                            Image(systemName: "trash.fill")
+                        })
+                        
+                        Button(action: {
+                            limitPlus = 0
+                            limitMinus = 0
+                            category = budget.category
+                            limit = budget.limit
+                            newLimit = budget.limit
+                            budgetToEdit = budget
+                            isUpdatingMode.toggle()
+                        },
+                               label: {
+                            Image(systemName: "pencil")
+                                .tint(Color.orange)
+                        })
+                    }
             }
             .background(budget.budgetRemain < 0 ? .red.opacity(0.2) : .clear)
-            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                
-                Button(role: .destructive, action: {budgetContext.delete(budget)}, label: {
-                    Image(systemName: "trash.fill")
-                })
-                
-                Button(action: {
-                    category = budget.category
-                    limit = budget.limit
-                    budgetToEdit = budget
-                    isUpdatingMode.toggle()
-                },
-                       label: {
-                    Image(systemName: "pencil")
-                        .tint(Color.orange)
-                })
-            }
             
         }
         .listStyle(.plain)

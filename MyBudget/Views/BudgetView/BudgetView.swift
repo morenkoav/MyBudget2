@@ -17,6 +17,8 @@ struct BudgetView: View {
     
     @State var limit: Double = 0
     @State var newLimit: Double = 0
+    @State var limitMinus: Double = 0
+    @State var limitPlus: Double = 0
     @State var category: Categories?
     @State var budgetToEdit: Budgets?
     
