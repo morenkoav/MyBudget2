@@ -90,8 +90,8 @@ struct CategoriesView: View {
                     Button {
                         showEditCategoryForm.toggle()
                     } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        Image(systemName: "rectangle.stack.fill.badge.plus")
+                            .font(.title2)
                     }
                     .foregroundStyle(.blue.gradient.opacity(0.6))
 

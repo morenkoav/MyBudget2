@@ -42,7 +42,7 @@ struct SummaryView: View {
                     Button {
                         showAdditionalInfo.toggle()
                     } label: {
-                        Image(systemName: "chart.bar.doc.horizontal")
+                        Image(systemName: "chart.line.uptrend.xyaxis")
                             .font(.title2)
                     }
                     .foregroundStyle(.blue.gradient.opacity(0.9))

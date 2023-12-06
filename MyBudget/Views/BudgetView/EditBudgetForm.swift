@@ -23,26 +23,20 @@ extension BudgetView {
                         .keyboardType(.decimalPad)
                 }
             }
-            .navigationTitle(isUpdatingMode ? "Изменить запись" : "Добавить бюджет")
+            .navigationTitle("Добавить бюджет")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Отмена") {
-                        showEditBudgetForm = false
-                        isUpdatingMode = false
+                        clearAndCloseBudgetForm()
                     }
                     .tint(.red)
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(isUpdatingMode ? "Изменить" : "Добавить") {
-                        if isUpdatingMode {
-                            updateBudgeteData()
-                            clearAndCloseBudgetForm()
-                        } else {
+                    Button("Добавить") {
                             addBudget()
                             clearAndCloseBudgetForm()
-                        }
                     }
                     .disabled(!formIsValid())
                 }

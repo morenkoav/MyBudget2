@@ -110,7 +110,7 @@ struct AccauntsView: View {
                     Button {
                         showAddAccauntDialog.toggle()
                     } label: {
-                        Image(systemName: "plus.circle.fill")
+                        Image(systemName: "creditcard.circle.fill")
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     }
                     .foregroundStyle(.blue.gradient.opacity(0.6))

@@ -32,6 +32,8 @@ extension BudgetView {
         func clearAndCloseBudgetForm() {
             category = nil
             limit = 0
+            newLimit = 0
+            budgetToEdit = nil
             isUpdatingMode = false
             showEditBudgetForm = false
         }
