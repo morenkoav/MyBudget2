@@ -56,7 +56,7 @@ struct BudgetView: View {
                     Button {
                         showEditBudgetForm.toggle()
                     } label: {
-                        Image(systemName: "plus.circle.fill")
+                        Image(systemName: "bag.fill.badge.plus")
                             .font(.title)
                     }
                     .foregroundStyle(.blue.gradient.opacity(0.6))

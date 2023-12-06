@@ -298,3 +298,33 @@ extension TransactionView {
     }
 
 }
+
+struct RoundAddButton: View {
+    
+    private let action: () -> Void
+    
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
+    
+    var body: some View {
+        Group {
+            Spacer()
+            Button(action: action,
+                   label: {
+                ZStack{
+                    Circle()
+                        .frame(maxWidth: 70)
+                        .foregroundColor(.blue.opacity(0.6))
+                    Image(systemName: "plus")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .bold()
+                        .foregroundColor(.white)
+                }
+            })
+            .padding(.bottom, 20)
+            .padding(.trailing, 20)
+        }
+        .frame(maxWidth: .infinity, maxHeight: 70, alignment: .bottomTrailing)
+    }
+}

@@ -210,6 +210,15 @@ struct TransactionView: View {
                 if operationCategory == "Transfer" && selectedPeriodSlice == "AllData" {
                     transactionsList(model: transferTransactions)
                 }
+//                RoundAddButton(action: {
+//                    category = nil
+//                    accaunt = nil
+//                    isPassiveIncome = false
+//                    isInvestments = false
+//                    amount = 0
+//                    memo = ""
+//                    showEditTransactionForm.toggle()
+//                })
 
             }
             .navigationTitle("Мои операции")
@@ -219,19 +228,18 @@ struct TransactionView: View {
                         Label("Пока здесь пусто", systemImage: "tray.fill")
                     }
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing,
-                            content: {
-                    Button {
+                VStack {
+                    Spacer()
+                    RoundAddButton(action: {
+                        category = nil
+                        accaunt = nil
+                        isPassiveIncome = false
+                        isInvestments = false
+                        amount = 0
+                        memo = ""
                         showEditTransactionForm.toggle()
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    }
-                    .foregroundStyle(.blue.gradient.opacity(0.6))
-
-                })
+                    })
+                }
             }
         }
         .sheet(isPresented: $showEditTransactionForm) {
