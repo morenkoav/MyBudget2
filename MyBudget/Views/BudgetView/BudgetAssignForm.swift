@@ -78,8 +78,7 @@ extension BudgetView {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Отмена") {
-                        showEditBudgetForm = false
-                        isUpdatingMode = false
+                        clearAndCloseBudgetForm()
                     }
                     .tint(.red)
                 }
