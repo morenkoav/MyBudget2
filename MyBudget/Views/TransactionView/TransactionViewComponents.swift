@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension TransactionView {
+extension TransactionCommonForm {
     
 //    MARK: - Выбор счета для дохода / расхода
     
@@ -173,130 +173,6 @@ extension TransactionView {
     func isPassiveIncomeToggle() -> some View {
         return Toggle("Пассивный доход", isOn: $isPassiveIncome)
     }
-    
-// MARK: - Скругленный прямоугольник для вывода итого транзакций за период
-    
-    func periodTotalView() -> some View {
-        
-        return Group {
-            ZStack {
-                if operationCategory == "Income" {
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(.green.gradient.opacity(0.6))
-                        .frame(maxWidth: .infinity / 2, maxHeight: 50)
-                        .font(.title2)
-                }
-                if operationCategory == "Expense" {
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(.red.gradient.opacity(0.6))
-                        .frame(maxWidth: .infinity / 2, maxHeight: 50)
-                        .font(.title2)
-                }
-                if operationCategory == "Transfer" {
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(.gray.gradient.opacity(0.6))
-                        .frame(maxWidth: .infinity / 2, maxHeight: 50)
-                        .font(.title2)
-                }
-
-                VStack {
-                    Text("За период:")
-                        .font(.caption)
-                    Group {
-                        // MARK: - Операции за предыдущий месяц
-                        
-                        if operationCategory == "Income" && selectedPeriodSlice == "PreviousMonth" {
-                            Text(sumOfTransactions(model: incomeTransactionsPreviousMonth).formatted())
-                        }
-                        
-                        if operationCategory == "Expense" && selectedPeriodSlice == "PreviousMonth" {
-                            Text(sumOfTransactions(model: expenseTransactionsPreviousMonth).formatted())
-                        }
-                        
-                        if operationCategory == "Transfer" && selectedPeriodSlice == "PreviousMonth" {
-                            Text(sumOfTransactions(model: transferTransactionsPreviousMonth).formatted())
-                        }
-                        
-                        // MARK: - Операции за предыдущий день
-                        
-                        if operationCategory == "Income" && selectedPeriodSlice == "Yesterday" {
-                            Text(sumOfTransactions(model: incomeTransactionsPreviousDay).formatted())
-                        }
-                        
-                        if operationCategory == "Expense" && selectedPeriodSlice == "Yesterday" {
-                            Text(sumOfTransactions(model: expenseTransactionsPreviousDay).formatted())
-                        }
-                        
-                        if operationCategory == "Transfer" && selectedPeriodSlice == "Yesterday" {
-                            Text(sumOfTransactions(model: transferTransactionsPreviousDay).formatted())
-                        }
-                        
-                        // MARK: - Операции за текущий день
-                        
-                        if operationCategory == "Income" && selectedPeriodSlice == "Today" {
-                            Text(sumOfTransactions(model: incomeTransactionsCurrentDay).formatted())
-                        }
-                        
-                        if operationCategory == "Expense" && selectedPeriodSlice == "Today" {
-                            Text(sumOfTransactions(model: expenseTransactionsCurrentDay).formatted())
-                        }
-                        
-                        if operationCategory == "Transfer" && selectedPeriodSlice == "Today" {
-                            Text(sumOfTransactions(model: transferTransactionsCurrentDay).formatted())
-                        }
-                        
-                        // MARK: - Операции за текущий месяц
-                        
-                        if operationCategory == "Income" && selectedPeriodSlice == "ThisMonth" {
-                            Text(sumOfTransactions(model: incomeTransactionsCurrentMonth).formatted())
-                        }
-                        
-                        if operationCategory == "Expense" && selectedPeriodSlice == "ThisMonth" {
-                            Text(sumOfTransactions(model: expenseTransactionsCurrentMonth).formatted())
-                        }
-                        
-                        if operationCategory == "Transfer" && selectedPeriodSlice == "ThisMonth" {
-                            Text(sumOfTransactions(model: transferTransactionsCurrentMonth).formatted())
-                        }
-                        
-                        // MARK: - Операции за текущий год
-                        
-                        if operationCategory == "Income" && selectedPeriodSlice == "ThisYear" {
-                            Text(sumOfTransactions(model: incomeTransactionsCurrentYear).formatted())
-                        }
-                        
-                        if operationCategory == "Expense" && selectedPeriodSlice == "ThisYear" {
-                            Text(sumOfTransactions(model: expenseTransactionsCurrentYear).formatted())
-                        }
-                        
-                        if operationCategory == "Transfer" && selectedPeriodSlice == "ThisYear" {
-                            Text(sumOfTransactions(model: transferTransactionsCurrentYear).formatted())
-                        }
-                        
-                        // MARK: - Все операции
-                        
-                        if operationCategory == "Income" && selectedPeriodSlice == "AllData" {
-                            Text(sumOfTransactions(model: incomeTransactions).formatted())
-                        }
-                        
-                        if operationCategory == "Expense" && selectedPeriodSlice == "AllData" {
-                            Text(sumOfTransactions(model: expenseTransactions).formatted())
-                        }
-                        
-                        if operationCategory == "Transfer" && selectedPeriodSlice == "AllData" {
-                            Text(sumOfTransactions(model: transferTransactions).formatted())
-                        }
-                    }
-                    .font(.title3)
-                    .bold()
-                }
-                .scaledToFit()
-                .padding(.horizontal)
-            }
-            
-        }
-    }
-
 }
 
 struct RoundAddButton: View {

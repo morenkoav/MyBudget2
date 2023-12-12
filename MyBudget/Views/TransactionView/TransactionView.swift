@@ -74,7 +74,7 @@ struct TransactionView: View {
     @State var category: Categories?
     @State var isPassiveIncome: Bool = false
     @State var isInvestments: Bool = false
-    @State var amount: Double = 0
+    @State var amount: Double? = nil
     @State var memo: String = ""
     
     @State var showEditTransactionForm = false
@@ -87,7 +87,6 @@ struct TransactionView: View {
     @State var selectedPeriodSlice = "ThisMonth"
     @State var startPeriod = Date()
     @State var endPeriod = Date()
-    
     
     var body: some View {
         NavigationStack {
@@ -210,15 +209,6 @@ struct TransactionView: View {
                 if operationCategory == "Transfer" && selectedPeriodSlice == "AllData" {
                     transactionsList(model: transferTransactions)
                 }
-//                RoundAddButton(action: {
-//                    category = nil
-//                    accaunt = nil
-//                    isPassiveIncome = false
-//                    isInvestments = false
-//                    amount = 0
-//                    memo = ""
-//                    showEditTransactionForm.toggle()
-//                })
 
             }
             .navigationTitle("Мои операции")
@@ -231,11 +221,12 @@ struct TransactionView: View {
                 VStack {
                     Spacer()
                     RoundAddButton(action: {
+                        transactionDate = Date()
                         category = nil
                         accaunt = nil
                         isPassiveIncome = false
                         isInvestments = false
-                        amount = 0
+                        amount = nil
                         memo = ""
                         showEditTransactionForm.toggle()
                     })

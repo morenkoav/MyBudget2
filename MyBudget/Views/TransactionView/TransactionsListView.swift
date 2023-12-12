@@ -68,4 +68,15 @@ extension TransactionView {
         }
         .listStyle(.plain)
     }
+    
+    //    MARK: - Обновление данных транзакции
+        
+        func updateTransactionData() {
+            transactionToEdit?.category = category
+            transactionToEdit?.accaunt = accaunt
+            transactionToEdit?.date = transactionDate
+            transactionToEdit?.amount = amount!
+            transactionToEdit?.memo = memo
+        }
+    
 }

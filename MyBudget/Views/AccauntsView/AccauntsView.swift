@@ -25,6 +25,7 @@ struct AccauntsView: View {
     @State var accauntToEdit: Accaunts?
     
     @State private var trackingSelection: String = "Tracking"
+    @State var showEditTransactionForm = false
     
     var currencyFormatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -103,6 +104,14 @@ struct AccauntsView: View {
                         Label("У Вас нет счетов", systemImage: "tray.fill")
                     }
                 }
+                
+                VStack {
+                    Spacer()
+                    RoundAddButton(action: {
+                        showEditTransactionForm.toggle()
+                    })
+                }
+                
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing,
@@ -123,6 +132,13 @@ struct AccauntsView: View {
         } content: {
             editAccauntView
         }
+        
+        .sheet(isPresented: $showEditTransactionForm) {
+            
+        } content: {
+            TransactionCommonForm()
+        }
+        
     }
 }
 

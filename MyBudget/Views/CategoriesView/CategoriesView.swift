@@ -25,6 +25,7 @@ struct CategoriesView: View {
     @State var categoryImage = ""
     
     @State var categorieToEdit: Categories?
+    @State var showEditTransactionForm = false
     
     let incomeImages = ["BankInterests", "Investments", "LoveMoney",
                         "Profit", "Percent2","Rent", "Salary", "Savings"]
@@ -75,15 +76,7 @@ struct CategoriesView: View {
                     categoriesList(model: expenseCategories)
                 }
             }
-            Spacer()
             .navigationTitle("Мои категории")
-            .overlay {
-                if categories.isEmpty {
-                    ContentUnavailableView {
-                        Label("У Вас нет категорий", systemImage: "tray.fill")
-                    }
-                }
-            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing,
                             content: {
@@ -97,12 +90,32 @@ struct CategoriesView: View {
 
                 })
             }
+            .overlay {
+                if categories.isEmpty {
+                    ContentUnavailableView {
+                        Label("У Вас нет категорий", systemImage: "tray.fill")
+                    }
+                }
+                
+                VStack {
+                    Spacer()
+                    RoundAddButton(action: {
+                        showEditTransactionForm.toggle()
+                    })
+                }
+                
+            }
         }
         .sheet(isPresented: $showEditCategoryForm) {
             
         } content: {
             editCategoryForm
-        }    
+        }
+        .sheet(isPresented: $showEditTransactionForm) {
+            
+        } content: {
+            TransactionCommonForm()
+        }
     }
 }
 

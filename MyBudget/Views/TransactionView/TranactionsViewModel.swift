@@ -7,17 +7,8 @@
 
 import SwiftUI
 
-extension TransactionView {
+extension TransactionCommonForm {
    
-//    MARK: - Обновление данных транзакции
-    
-    func updateTransactionData() {
-        transactionToEdit?.category = category
-        transactionToEdit?.accaunt = accaunt
-        transactionToEdit?.date = transactionDate
-        transactionToEdit?.amount = amount
-        transactionToEdit?.memo = memo
-    }
     
 //    MARK: - Создание транзакции
     
@@ -28,7 +19,7 @@ extension TransactionView {
                 date: transactionDate,
                 isPassiveIncome: isPassiveIncome,
                 isInvestments: isInvestments,
-                amount: amount,
+                amount: amount!,
                 memo: memo
             )
             
@@ -45,7 +36,7 @@ extension TransactionView {
                 date: transactionDate,
                 isPassiveIncome: isPassiveIncome,
                 isInvestments: isInvestments,
-                amount: -amount,
+                amount: -amount!,
                 memo: memo
             )
             transactionContext.insert(expenseTransaction)
@@ -59,14 +50,14 @@ extension TransactionView {
                 date: transactionDate,
                 isPassiveIncome: false,
                 isInvestments: false,
-                amount: -amount,
+                amount: -amount!,
                 memo: memo
             )
             let transactionTo = Transactions(
                 date: transactionDate,
                 isPassiveIncome: false,
                 isInvestments: false,
-                amount: amount,
+                amount: amount!,
                 memo: memo
             )
             
@@ -88,19 +79,18 @@ extension TransactionView {
         accaunt = nil
         transferToAccaunt = nil
         transactionDate = Date()
-        amount = 0
+        amount = nil
         memo = ""
-        isUpdatingMode = false
-        showEditTransactionForm = false
+        dismiss()
     }
     
 //    MARK: - Проверка валидности формы создания / обновления трпанзакции
     
     func formIsValid() -> Bool {
         if operationCategory != "Transfer" {
-            amount != .zero && accaunt != nil && category != nil
+            amount != nil && accaunt != nil && category != nil
         } else {
-            amount != .zero && accaunt != nil && transferToAccaunt != nil && category != nil
+            amount != nil && accaunt != nil && transferToAccaunt != nil && category != nil
         }
         
     }

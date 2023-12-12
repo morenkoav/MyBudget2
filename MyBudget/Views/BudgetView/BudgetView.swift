@@ -14,6 +14,7 @@ struct BudgetView: View {
     
     @State var showEditBudgetForm = false
     @State var isUpdatingMode = false
+    @State var showEditTransactionForm = false
     
     @State var limit: Double = 0
     @State var newLimit: Double = 0
@@ -48,6 +49,12 @@ struct BudgetView: View {
                         Label("У Вас нет бюджетов", systemImage: "tray.fill")
                     }
                 }
+                VStack {
+                    Spacer()
+                    RoundAddButton(action: {
+                        showEditTransactionForm.toggle()
+                    })
+                }
             }
             .navigationTitle("Мой бюджет")
             .toolbar {
@@ -75,6 +82,12 @@ struct BudgetView: View {
         } content: {
             assignMoneyToBudget()
         }
+        .sheet(isPresented: $showEditTransactionForm) {
+            
+        } content: {
+            TransactionCommonForm()
+        }
+        
     }
 }
 

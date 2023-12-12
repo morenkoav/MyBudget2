@@ -25,6 +25,8 @@ struct SummaryView: View {
     
     @State var selectedReport = "CashFlow"
     
+    @State var showEditTransactionForm = false
+    
     
     var body: some View {
         NavigationStack {
@@ -49,11 +51,24 @@ struct SummaryView: View {
 
                 })
             }
+            .overlay {
+                VStack {
+                    Spacer()
+                    RoundAddButton(action: {
+                        showEditTransactionForm.toggle()
+                    })
+                }
+            }
         }
         .sheet(isPresented: $showAdditionalInfo) {
             
         } content: {
             showAditionalCharts()
+        }
+        .sheet(isPresented: $showEditTransactionForm) {
+            
+        } content: {
+            TransactionCommonForm()
         }
     }
 }
