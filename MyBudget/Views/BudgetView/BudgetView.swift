@@ -20,8 +20,14 @@ struct BudgetView: View {
     @State var newLimit: Double = 0
     @State var limitMinus: Double = 0
     @State var limitPlus: Double = 0
+    @State var transferLimit: Double = 0
     @State var category: Categories?
+    
+    @State var budgetFrom: Budgets?
+    
     @State var budgetToEdit: Budgets?
+    
+    @State var assignationType = "Direct"
     
     @Query(filter: #Predicate<Categories> {$0.operation == "Expense"}) let categorySet: [Categories]
     

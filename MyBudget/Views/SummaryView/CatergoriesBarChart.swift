@@ -25,8 +25,7 @@ extension SummaryView {
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumPreviousMonth),
-                            y: .value("Категория", category.category),
-                            width: MarkDimension.fixed(100)
+                            y: .value("Категория", category.category)
                         )
                         .foregroundStyle(.green)
                     }
@@ -44,8 +43,7 @@ extension SummaryView {
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumThisMonth),
-                            y: .value("Категория", category.category),
-                            width: MarkDimension.fixed(100)
+                            y: .value("Категория", category.category)
                         )
                         .foregroundStyle(.green)
                     }
@@ -62,8 +60,7 @@ extension SummaryView {
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumThisYear),
-                            y: .value("Категория", category.category),
-                            width: MarkDimension.fixed(100)
+                            y: .value("Категория", category.category)
                         )
                         .foregroundStyle(.green)
                     }
@@ -80,8 +77,7 @@ extension SummaryView {
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absSumPreviousYear),
-                            y: .value("Категория", category.category),
-                            width: MarkDimension.fixed(100)
+                            y: .value("Категория", category.category)
                         )
                         .foregroundStyle(.green)
                     }
@@ -98,8 +94,7 @@ extension SummaryView {
                     Chart(sortedIncomeArray) { category in
                         BarMark(
                             x: .value("Сумма", category.absCategorySum),
-                            y: .value("Категория", category.category),
-                            width: MarkDimension.fixed(100)
+                            y: .value("Категория", category.category)
                         )
                         .foregroundStyle(.green)
                     }

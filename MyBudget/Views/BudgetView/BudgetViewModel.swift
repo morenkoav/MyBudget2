@@ -33,16 +33,22 @@ extension BudgetView {
             category = nil
             limit = 0
             newLimit = 0
+            transferLimit = 0
             budgetToEdit = nil
+            budgetFrom = nil
             isUpdatingMode = false
             showEditBudgetForm = false
         }
         
 //    MARK: - Проверка валидности формы создания / обновления бюджета
         
-        func formIsValid() -> Bool {
-            category != nil
-        }
+    func formIsValid() -> Bool {
+        category != nil
+    }
+    
+    func transferFormisValid() -> Bool {
+        budgetToEdit != nil && budgetFrom != nil 
+    }
 
     
 //    MARK: - Вычисление суммы входящих остатков
@@ -86,5 +92,12 @@ extension BudgetView {
         
         
     }
+    
+//    MARK: - Перенос средств между бюджетами
+            
+            func transferBudgets() {
+                budgetFrom?.limit -= transferLimit
+                budgetToEdit?.limit += transferLimit
+            }
     
 }

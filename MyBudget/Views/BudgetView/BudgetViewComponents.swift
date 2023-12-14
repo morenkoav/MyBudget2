@@ -81,6 +81,69 @@ extension BudgetView {
         .padding()
     }
     
+    //    MARK: - Выбор типа назначения бюджета
+        
+        func assignationTypePicker() -> some View {
+            return Picker("", selection: $assignationType, content: {
+                Text("Корректировка")
+                    .tag("Direct")
+                Text("Перенос")
+                    .tag("Transfer")
+            })
+            .pickerStyle(.segmented)
+        }
+    
+//    MARK: - Выбор категории для переноса бюджета С
+        
+    func budgetPickerTransferFrom() -> some View {
+        
+        return HStack{
+            Text("C ")
+            Spacer()
+
+            Menu {
+                ForEach(budgets) { bud in
+                    Button(action: {self.budgetFrom = bud}, label: {
+                        Image(bud.category?.image ?? "")
+                        Text("\(bud.category?.category ?? ""): \(bud.budgetRemain.formatted())")
+                            .lineLimit(1)
+                    })
+                }
+            } label: {
+                if let budgetFrom = budgetFrom?.category?.category {
+                    Text(budgetFrom)
+                } else {
+                    Text("Выбрать бюджет")
+                }
+            }
+        }
+    }
+
+    //    MARK: - Выбор категории для переноса бюджета НА
+            
+        func budgetPickerTransferTo() -> some View {
+            
+            return HStack {
+                Text("На ")
+                Spacer()
+
+                Menu {
+                    ForEach(budgets) { bud in
+                        Button(action: {self.budgetToEdit = bud}, label: {
+                            Image(bud.category?.image ?? "")
+                            Text("\(bud.category?.category ?? ""): \(bud.budgetRemain.formatted())")
+                                .lineLimit(1)
+                        })
+                    }
+                } label: {
+                    if let budgetToEdit = budgetToEdit?.category?.category {
+                        Text(budgetToEdit)
+                    } else {
+                        Text("Выбрать бюджет")
+                    }
+                }
+            }
+        }
     
     
     
