@@ -72,11 +72,22 @@ extension TransactionView {
     //    MARK: - Обновление данных транзакции
         
         func updateTransactionData() {
-            transactionToEdit?.category = category
-            transactionToEdit?.accaunt = accaunt
-            transactionToEdit?.date = transactionDate
-            transactionToEdit?.amount = amount!
-            transactionToEdit?.memo = memo
+            
+            if operationCategory == "Expense" {
+                transactionToEdit?.category = category
+                transactionToEdit?.accaunt = accaunt
+                transactionToEdit?.date = transactionDate
+                transactionToEdit?.amount = -amount!
+                transactionToEdit?.memo = memo
+            }
+            else {
+                transactionToEdit?.category = category
+                transactionToEdit?.accaunt = accaunt
+                transactionToEdit?.date = transactionDate
+                transactionToEdit?.amount = amount!
+                transactionToEdit?.memo = memo
+            }
+            
         }
     
 }

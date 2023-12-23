@@ -20,7 +20,7 @@ struct BudgetView: View {
     @State var newLimit: Double = 0
     @State var limitMinus: Double = 0
     @State var limitPlus: Double = 0
-    @State var transferLimit: Double = 0
+    @State var transferLimit: Double? = nil
     @State var category: Categories?
     
     @State var budgetFrom: Budgets?
@@ -33,7 +33,7 @@ struct BudgetView: View {
     
     @Query let budgets: [Budgets]
     
-    @Query(filter: #Predicate<Budgets> {$0.category != nil}, sort: \.limit, order: .reverse) let sortedBudgets: [Budgets]
+//    @Query(filter: #Predicate<Budgets> {$0.category != nil}, sort: \.limit, order: .reverse) let sortedBudgets: [Budgets]
     
     @Query let transactions: [Transactions]
     

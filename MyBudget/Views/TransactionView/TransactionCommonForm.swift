@@ -39,6 +39,7 @@ struct TransactionCommonForm: View {
                 TextField("0", value: $amount, format: .number)
                     .keyboardType(.decimalPad)
                     .font(.title)
+                    .foregroundColor(operationCategory == "Expense" ? .red : .green)
                     .bold()
                     .padding(5)
                     .multilineTextAlignment(.trailing)

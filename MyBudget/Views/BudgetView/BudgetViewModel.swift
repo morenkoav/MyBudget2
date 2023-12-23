@@ -33,7 +33,7 @@ extension BudgetView {
             category = nil
             limit = 0
             newLimit = 0
-            transferLimit = 0
+            transferLimit = nil
             budgetToEdit = nil
             budgetFrom = nil
             isUpdatingMode = false
@@ -47,7 +47,7 @@ extension BudgetView {
     }
     
     func transferFormisValid() -> Bool {
-        budgetToEdit != nil && budgetFrom != nil 
+        budgetToEdit != nil && budgetFrom != nil && transferLimit != nil
     }
 
     
@@ -66,7 +66,8 @@ extension BudgetView {
         
         func operationsSum() -> Double {
             let incomeTransactions = transactions.filter {
-                $0.category?.operation == "Income"
+                $0.category?.operation == "Income" &&
+                $0.accaunt?.isTrackingAccaunt == true
             }
             let transactionsSum = incomeTransactions.reduce(0) { result, item in
 
@@ -96,8 +97,8 @@ extension BudgetView {
 //    MARK: - Перенос средств между бюджетами
             
             func transferBudgets() {
-                budgetFrom?.limit -= transferLimit
-                budgetToEdit?.limit += transferLimit
+                budgetFrom?.limit -= transferLimit!
+                budgetToEdit?.limit += transferLimit!
             }
     
 }
