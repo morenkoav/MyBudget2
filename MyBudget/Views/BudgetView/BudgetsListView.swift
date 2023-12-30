@@ -22,18 +22,19 @@ extension BudgetView {
                     .font(.subheadline)
                     .lineLimit(2)
                     .frame(maxWidth: 110, alignment: .leading)
-                VStack(alignment: .leading) {
-                    Text("Бюджет: \(budget.limit.formatted())")
-                    Text("Расход: \(budget.category?.absCategorySum.formatted() ?? "")")
-                }
-                .font(.caption)
-                .bold()
-                .frame(maxWidth: .infinity, alignment: .leading)
+//                VStack(alignment: .leading) {
+//                    Text("Бюджет: \(budget.limit.formatted())")
+//                    Text("Расход: \(budget.category?.absCategorySum.formatted() ?? "")")
+//                }
+//                .font(.caption)
+//                .bold()
+//                .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
                 Text(budget.budgetRemain.formatted())
                     .foregroundStyle(budget.budgetRemain >= 0 ? .green : .red)
                     .bold()
                     .font(.subheadline)
-                    .frame(maxWidth: 80, alignment: .trailing)
+                    .frame(alignment: .trailing)
                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         
                         Button(role: .destructive, action: {budgetContext.delete(budget)}, label: {
