@@ -47,11 +47,11 @@ struct TransactionView: View {
     
 // MARK: - Операции за текущий месяц
     
-    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Income" && $0.date >= startOfCurrentMonth2 && $0.date <= endOfCurrentMonth}, sort: \Transactions.date, order: .reverse) let incomeTransactionsCurrentMonth: [Transactions]
+    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Income" && $0.date >= startOfCurrentMonth2 }, sort: \Transactions.date, order: .reverse) let incomeTransactionsCurrentMonth: [Transactions]
     
-    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Expense" && $0.date >= startOfCurrentMonth2 && $0.date <= endOfCurrentMonth}, sort: \Transactions.date, order: .reverse) let expenseTransactionsCurrentMonth: [Transactions]
+    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Expense" && $0.date >= startOfCurrentMonth2 }, sort: \Transactions.date, order: .reverse) let expenseTransactionsCurrentMonth: [Transactions]
     
-    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Transfer" && $0.date >= startOfCurrentMonth2 && $0.date <= endOfCurrentMonth}, sort: \Transactions.date, order: .reverse) let transferTransactionsCurrentMonth: [Transactions]
+    @Query(filter: #Predicate<Transactions> {$0.category?.operation == "Transfer" && $0.date >= startOfCurrentMonth2 }, sort: \Transactions.date, order: .reverse) let transferTransactionsCurrentMonth: [Transactions]
     
 // MARK: - Операции за текущий год
     
@@ -85,8 +85,8 @@ struct TransactionView: View {
     @State var transactionToEdit: Transactions?
     
     @State var selectedPeriodSlice = "ThisMonth"
-    @State var startPeriod = Date()
-    @State var endPeriod = Date()
+//    @State var startPeriod = Date()
+//    @State var endPeriod = Date()
     
     var body: some View {
         NavigationStack {

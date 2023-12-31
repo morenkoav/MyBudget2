@@ -33,7 +33,6 @@ extension SummaryView {
         if selectedPeriodSlice == "ThisMonth" {
             let filteredArray = transactions.filter {
                 $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
                 $0.category?.operation == "Income"
             }
             
@@ -100,7 +99,6 @@ extension SummaryView {
         if selectedPeriodSlice == "ThisMonth" {
             let filteredArray = transactions.filter {
                 $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
                 $0.category?.operation == "Income" &&
                 $0.isPassiveIncome == true
                 
@@ -170,7 +168,6 @@ extension SummaryView {
         if selectedPeriodSlice == "ThisMonth" {
             let filteredArray = transactions.filter {
                 $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
                 $0.category?.operation == "Expense"
             }
             
@@ -236,7 +233,6 @@ extension SummaryView {
         if selectedPeriodSlice == "ThisMonth" {
             let filteredArray = transactions.filter {
                 $0.date >= startOfCurrentMonth &&
-                $0.date <= endOfCurrentMonth &&
                 $0.category?.operation == "Expense" &&
                 $0.isInvestments == true
             }
