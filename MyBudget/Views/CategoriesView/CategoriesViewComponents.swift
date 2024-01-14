@@ -25,10 +25,10 @@ extension CategoriesView {
     }
     
     func clearAndCloseCategoryForm() {
-        categoryName = ""
-        categoryImage = ""
         isUpdatingMode = false
         showEditCategoryForm = false
+        categoryName = ""
+        categoryImage = ""
     }
     
     func formIsValid() -> Bool {

@@ -75,13 +75,13 @@ extension TransactionCommonForm {
 //    MARK: - Очистка полей формы и закрытие диалогового окна
     
     func clearAndCloseTransactionForm() {
+        dismiss()
         category = nil
         accaunt = nil
         transferToAccaunt = nil
         transactionDate = Date()
         amount = nil
         memo = ""
-        dismiss()
     }
     
 //    MARK: - Проверка валидности формы создания / обновления трпанзакции

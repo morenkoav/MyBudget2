@@ -154,14 +154,14 @@ extension TransactionView {
 //    MARK: - Очистка полей формы и закрытие диалогового окна
     
     func clearAndCloseTransactionForm() {
+        isUpdatingMode = false
+        showEditTransactionForm = false
         category = nil
         accaunt = nil
         transferToAccaunt = nil
         transactionDate = Date()
         amount = nil
         memo = ""
-        isUpdatingMode = false
-        showEditTransactionForm = false
     }
     
 //    MARK: - Проверка валидности формы создания / обновления трпанзакции

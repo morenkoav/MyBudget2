@@ -21,10 +21,10 @@ extension AccauntsView {
     }
     
     func clearAndCloseAccauntForm() {
-        accauntName = ""
-        startBalance = 0
         isUpdatingMode = false
         showAddAccauntDialog = false
+        accauntName = ""
+        startBalance = 0
     }
     
 }

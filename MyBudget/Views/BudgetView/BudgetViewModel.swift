@@ -30,14 +30,15 @@ extension BudgetView {
 //    MARK: - Очистка полей формы и закрытие диалогового окна
         
         func clearAndCloseBudgetForm() {
+
+            showEditBudgetForm = false
+            isUpdatingMode = false
             category = nil
             limit = 0
             newLimit = 0
             transferLimit = nil
             budgetToEdit = nil
             budgetFrom = nil
-            isUpdatingMode = false
-            showEditBudgetForm = false
         }
         
 //    MARK: - Проверка валидности формы создания / обновления бюджета
