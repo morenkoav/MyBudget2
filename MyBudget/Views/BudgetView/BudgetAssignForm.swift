@@ -25,8 +25,8 @@ extension BudgetView {
                             .frame(maxWidth: 30, maxHeight: 30)
                         Text(category?.category ?? "")
                     }
-                    Text("Текущий лимит:  \(budgetToEdit?.limit.formatted() ?? "")")
-                    Text("Расходы:  \(budgetToEdit?.category?.absCategorySum.formatted() ?? "")")
+//                    Text("Текущий лимит:  \(budgetToEdit?.limit.formatted() ?? "")")
+//                    Text("Расходы:  \(budgetToEdit?.category?.absCategorySum.formatted() ?? "")")
                     
                     if budgetToEdit?.budgetRemain ?? 0 < 0 {
                         Text("Дефицит:  \(budgetToEdit?.budgetRemain.formatted() ?? "")")
@@ -54,9 +54,9 @@ extension BudgetView {
                             .bold()
                     }
 
-                    HStack{
+                    HStack {
                         Spacer()
-                        Menu("Обнулить...") {
+                        Menu("Быстрое действие...") {
                             Button("Обнулить остаток", action: {limitMinus =  (budgetToEdit?.budgetRemain ?? 0) })
                             
                             if budgetToEdit?.budgetRemain ?? 0 < 0 {
@@ -66,6 +66,14 @@ extension BudgetView {
                             Button("+Расход пред. месяца", action: {
                                 limitPlus = budgetToEdit?.category?.absSumPreviousMonth ?? 0})
                         }
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Button("Сохранить и закрыть", action: {
+                            updateBudgeteData()
+                            clearAndCloseBudgetForm()
+                        })
                         Spacer()
                     }
                 }
