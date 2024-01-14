@@ -21,7 +21,7 @@ extension BudgetView {
                 Text(budget.category?.category ?? "")
                     .font(.subheadline)
                     .lineLimit(2)
-                    .frame(maxWidth: 110, alignment: .leading)
+                    .frame(alignment: .leading)
 //                VStack(alignment: .leading) {
 //                    Text("Бюджет: \(budget.limit.formatted())")
 //                    Text("Расход: \(budget.category?.absCategorySum.formatted() ?? "")")
