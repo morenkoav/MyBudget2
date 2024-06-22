@@ -31,7 +31,7 @@ struct CategoriesView: View {
                         "Profit", "Percent2","Rent", "Salary", "Savings"]
     
     let expenseImages = ["Accounting", "Airplane", "AirplaneWindow","Apartments1", "Barber", "Beach", "Bill","Bus", "Bus2",
-                        "Buying", "Cello", "Charity", "Charity2","Car", "Car2", "Cash", "Digital1", "Digital2", "Festival",
+                        "Buying", "Cello", "Charity", "Charity2","Car", "Car2", "Cash", "Digital1", "Digital2", "EducationBook", "EducationFem", "EducationMale", "Festival",
                          "Fitness", "Fitness1", "Fun", "Gift", "Grocery1", "Hamper", "Health", "Health2","Home","Home2",
                          "iMac", "Meal", "Meal2", "Meal3", "Percent", "Pharma", "Phone1", "Phone2", "Renovation", "Repair", "Reservs", "Savings",
                          "Shopping", "Shopping2", "Smartphone", "Taxi", "Travel", "Vacation", "Wallet"]
